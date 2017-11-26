@@ -1,3 +1,4 @@
+import java.util.Scanner;
 //This is the final project program
 public class FinalProject{
   //This string array contain map information
@@ -19,13 +20,61 @@ public class FinalProject{
     {"Ar","Ar","Sn","Ar","Rt","Ww","Wn","Ww","Fb","Pr","Fn"},
     {"Aw","Aw","Tn","Wt","Rr","Pr","Hr","Ww","Fn","Fn","Fw"}
   };
+  //String[15][11]
+  public static int[] CurrentCoordinate= {14,0};
+  //{Y,X}
   public static void main(String[] args){
-    /**  for(int i=0;i<15;i++){
-        for(int j=0;j<11;j++){
-          System.out.print(Map[i][j]+" ");
-        }
-        System.out.println();
-      }
+  /**
+   for(int i=0;i<15;i++){
+    for(int j=0;j<11;j++){
+      System.out.print(Map[i][j]+" ");
+    }
+      System.out.println();
+  }
 */
+    Boolean Test=false;
+    char M;
+    while(Test!=true){
+      System.out.printf("Please input a Char.%nL for moving leftward; R for moving rightward; U for moving upwards; and D for moving downwards.%n");
+       Scanner s = new Scanner(System.in);
+       M=s.nextLine().charAt(0);
+       Test=Move(M);
+    }
+    System.out.println("After the move, current coordinate is ("+CurrentCoordinate[1]+","+CurrentCoordinate[0]+")");
+  }
+
+  //This subroutine is used for player movement.
+  public static Boolean Move(char M){
+    //Input a char M input this subroutine as command of movement. If the movement is valid, it will change current CurrentCoordinate and return true.
+    if (CurrentCoordinate[1]==0 && M=='L'){
+      System.out.println("You are at the most left, cannot go left. Input again:");
+      return false;
+    } else if (CurrentCoordinate[1]==10 && M=='R'){
+      System.out.println("You are at the most right, cannot go right. Input again:");
+      return false;
+    } else if (CurrentCoordinate[0]==14 && M=='D'){
+      System.out.println("You are at the most bottom, cannot go down. Input again:");
+      return false;
+    } else if (CurrentCoordinate[0]==0 && M=='U'){
+      System.out.println("You are at the most top, cannot go up. Input again:");
+      return false;
+    } else {
+      if (M=='U'){
+        CurrentCoordinate[0]-=1;
+        return true;
+      }else if(M=='D'){
+        CurrentCoordinate[0]+=1;
+        return true;
+      }else if(M=='L'){
+        CurrentCoordinate[1]-=1;
+        return true;
+      }else if(M=='R'){
+        CurrentCoordinate[1]+=1;
+        return true;
+      }else {
+        System.out.println("Illegal input. Input again:");
+        return false;
+      }
     }
   }
+}
