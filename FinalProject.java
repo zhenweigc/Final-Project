@@ -32,6 +32,7 @@ public class FinalProject{
       System.out.println();
   }
 */
+  /**
     Boolean Test=false;
     char M;
     while(Test!=true){
@@ -41,6 +42,8 @@ public class FinalProject{
        Test=Move(M);
     }
     System.out.println("After the move, current coordinate is ("+CurrentCoordinate[1]+","+CurrentCoordinate[0]+")");
+    */
+    //Previous Codes are used to test whether subroutine M works properly.
   }
 
   //This subroutine is used for player movement.
