@@ -80,4 +80,43 @@ public class FinalProject{
       }
     }
   }
+  public static int day=0;
+  public static int hp=100;
+  public static int money=1000;
+  public static int food = 10;
+  public static int gun = 0;
+  public static int ammo = 0;
+  public static int medicine = 0;
+  public static int gold = 0;
+
+  public static void act(){
+  //empty
+  }
+
+  public static void sleep(){
+    day+=1;
+  }
+//rule--- spend 60days win
+  public static Boolean windays(int val1){
+    if(val1==60){
+      windays = true;
+    } else{
+      windays = false;
+    }
+  }
+//rule--- exit the matrix ---win
+  public static Boolean winout(int[] coordinate){
+    if(coordinate[0]==10 && coordinate[1]==14){
+      winout = true;
+    }else{
+      winout = false;
+    }
+  }
+  public static Boolean win(boolean windays, boolean winout){
+    if(winout||windays){
+      win = true;
+    }else{
+      win = false;
+    }
+  }
 }
