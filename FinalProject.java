@@ -1,7 +1,11 @@
 import java.util.Scanner;
 //This is the final project program
 public class FinalProject{
-  //This string array contain map information
+  /**
+  This string array contains map information, with the capital
+  letter denoting the type of buildings and small letter state
+  of buildings
+  */
   public static final String[][] Map=
   {
     {"Mw","Fn","Sn","Rr","Rr","Hw","Wt","Fr","Hr","Mr","Gr"},
@@ -21,6 +25,10 @@ public class FinalProject{
     {"Aw","Aw","Tn","Wt","Rr","Pr","Hr","Ww","Fn","Fn","Fw"}
   };
   //String[15][11]
+  /**
+  CurrentCoordinate represents the current coordinate of the player,
+  with starting point at (14,0)
+  */
   public static int[] CurrentCoordinate= {14,0};
   //{Y,X}
   public static void main(String[] args){
@@ -46,7 +54,11 @@ public class FinalProject{
     //Previous Codes are used to test whether subroutine M works properly.
   }
 
-  //This subroutine is used for player movement.
+  /**
+  This subroutine is used for player movement.
+  @param M the user's input, if valid it will change current CurrentCoordinate
+  @return return true, if the movement is valid; otherwise, false
+  */
   public static Boolean Move(char M){
     //Input a char M input this subroutine as command of movement. If the movement is valid, it will change current CurrentCoordinate and return true.
     if (CurrentCoordinate[1]==0 && M=='L'){
@@ -96,15 +108,25 @@ public class FinalProject{
   public static void sleep(){
     day+=1;
   }
-//rule--- spend 60days win
+
+/**
+  the first condition to win: if the player could survive 60 days, then win
+  @param val1 surviving days of the player
+  @return true if surviving days equal 60
+*/
   public static Boolean windays(int val1){
     if(val1==60){
-      windays = true;
+      return true;
     } else{
-      windays = false;
+      return false;
     }
   }
-//rule--- exit the matrix ---win
+
+/**
+the second condition to win: escaping from the city (i.e. arriving (10,14))
+@param coordinate the position of the player
+@return true if the player escapes from the city
+*/
   public static Boolean winout(int[] coordinate){
     if(coordinate[0]==10 && coordinate[1]==14){
       winout = true;
@@ -112,6 +134,13 @@ public class FinalProject{
       winout = false;
     }
   }
+
+  /**
+use the 2 conditions above to determine whether the user has won
+@param windays boolean value to show whether the user has survived 60 days
+@param winout boolean value to show whether the user has escaped
+@return true if at least one of the 2 conditions is satisfied, meaning the player has won
+  */
   public static Boolean win(boolean windays, boolean winout){
     if(winout||windays){
       win = true;
