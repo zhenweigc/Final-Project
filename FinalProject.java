@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.Random;
 //This is the final project program
 public class FinalProject{
 
@@ -16,6 +17,9 @@ public class FinalProject{
   public static int hungry=10;
   public static Boolean FastRecover=false;
   public static Boolean injured=false;
+  public static Boolean spyID=false;
+  public static Boolean Cipher=false;
+  public static Boolean Badge=false;
   /**
   This string array contains map information, with the capital
   letter denoting the type of buildings and small letter state
@@ -80,6 +84,7 @@ public class FinalProject{
       action();
       sleep();
     }while(!win());
+    End();
   }
 
   /**
@@ -124,10 +129,17 @@ public class FinalProject{
 
 /**
   This method is used for the action stage in game.
+  @return This method does not need to return.
 */
   public static void action(){
-  //empty
+    System.out.printf("Time to do something....%n");
+    System.out.printf("You need to make a choice among actions available in your current position. If you have decided, enter the number before the choice to choose. Choose wisely.%n");
   }
+
+/**
+
+*/
+  //public static
 
 /**
   This method is used for sleeping stage in game.
@@ -137,8 +149,14 @@ public class FinalProject{
   }
 
 /**
+*/
+  public static void End(){
+
+  }
+
+/**
   the first condition to win: if the player could survive 60 days, then win
-  @param val1 surviving days of the player
+  @param day surviving days of the player
   @return true if surviving days equal 60
 */
   public static Boolean windays(){
@@ -255,7 +273,7 @@ winout: method to show whether the user has escaped
   @return No returns needed
   */
   public static void Introduction(){
-    System.out.println("Welcome to the game! In this game, you played as a civilian who lived inside a city that have been surrounded rebels.");
+    System.out.println("Welcome to the game! In this game, you played as a civilian, Dimitri Reznov, who lived inside a city that have been surrounded rebels.");
     Delay();
     System.out.println("What you need to do was to survive by scavenging. And maybe stealing or even kill someone---You decide.");
     Delay();
@@ -310,6 +328,19 @@ winout: method to show whether the user has escaped
 
 /**
   This method presents player's current status.
+  @param sick A Boolean value that shows whether Reznov is sick or not.
+  @param injured A Boolean value that shows whether Reznov is injured or not.
+  @param pistol A Boolean value that shows whether Reznov has a pistol or not.
+  @param AutomaticRifle A Boolean value that shows whether Reznov has an AR or not.
+  @param FastRecover A Boolean value that shows whether Reznov bandaged himselves or not.
+  @param food An int type data that shows how many units of food Reznov has now.
+  @param medicine An int type data that shows how many units of medicine Reznov has now.
+  @param bandage An int type data that shows how many units of bandages Reznov has now.
+  @param ammo An int type data that shows how many units of ammo Reznov has now.
+  @param valuables An int type data that shows how many units of valuables Reznov has now.
+  @param spyID A Boolean value that shows whether Reznov has a spy ID or not.
+  @param Cipher A Boolean value that shows whether Reznov has a cipher or not.
+  @param Badge  A Boolean value that shows whether Reznov has a badge or not.
   @return No return needed.
 */
   public static void PlayerStatus(){
@@ -337,6 +368,15 @@ winout: method to show whether the user has escaped
     if(FastRecover){
       System.out.printf("You have bandaged yourself.%n");
     }
+    if(spyID){
+      System.out.printf("You have a spy ID that may help you to cheat rebels.%n");
+    }
+    if(Badge){
+      System.out.printf("You have a badge of rebel spies.%n");
+    }
+    if(Cipher){
+      System.out.printf("You had and learned cipher of a spy.%n");
+    }
   }
 
 /**
@@ -363,15 +403,15 @@ Delay the program for 6.5s, make the program show texts slowly.
 
   /**
   This method is used to check whether player lose the game.
-  @param hp hp is health point of the player.
+  @param hp hp is health point of Reznov.
   @param hungry Hungry is rate of hunger.
-  @param sick Sick is a boolean type value that shows whether the player is sick.
-  @param injured Injured is a boolean type value that shows whether the player is injured.
+  @param sick Sick is a boolean type value that shows whether Reznov is sick.
+  @param injured Injured is a boolean type value that shows whether Reznov is injured.
   @return No returns needed.
   */
   public static void Defeat(){
     if(hp==0){
-      if(sick&&injured&&(hungry<5){
+      if(sick&&injured&&(hungry<5)){
         System.out.printf("You suffered from starving, injury and disease and finally fail to survive.%nYou become one of those victims of war.%n");
         System.exit(1);
       }else if(sick&&injured){
@@ -380,7 +420,7 @@ Delay the program for 6.5s, make the program show texts slowly.
       }else if(sick&&hungry<5){
         System.out.printf("Sickness and hunger tortured you and finally take your lives.%n");
         System.exit(1);
-      }else if(injured&&hungry<5){
+      }else if(injured&&(hungry<5)){
         System.out.printf("Suffered from injury and hunger, you died.%n");
         System.exit(1);
       }else if(injured){
@@ -395,4 +435,18 @@ Delay the program for 6.5s, make the program show texts slowly.
       System.exit(1);
     }
   }
+
+  /**
+  This method will generate a random number in order to decide what results will happen when the player make a choice.
+  The higher the number generated is, the better the result.
+  @param i An integer that determine how many dices will be rolled at the same time. (Determine range of the random number.)
+  @return Return the randomly generated integer.
+  */
+  public static int RollDice(int i){
+    Random r=new Random();
+    int output=(r.nextInt(6*i))+1;
+    return output;
+  }
+
+
 }
