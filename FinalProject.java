@@ -72,13 +72,14 @@ public class FinalProject{
     PositionReport();
     PlayerStatus();
     do{
-      System.out.println("Please enter a char to move. U for upwards, D for downwards, L for Leftwards and R for rightwards.");
       Scanner s = new Scanner(System.in);
       char M=s.nextLine().charAt(0);
       Move(M);
       PositionReport();
       PlayerStatus();
-    }while(true);
+      action();
+      sleep();
+    }while(!win());
   }
 
   /**
@@ -88,6 +89,7 @@ public class FinalProject{
   */
   public static Boolean Move(char M){
     //Input a char M input this subroutine as command of movement. If the movement is valid, it will change current CurrentCoordinate and return true.
+    System.out.println("Please enter a char to move. U for upwards, D for downwards, L for Leftwards and R for rightwards.");
     if (CurrentCoordinate[1]==0 && M=='L'){
       System.out.println("You are at the most left, cannot go left. Input again:");
       return false;
@@ -120,12 +122,16 @@ public class FinalProject{
     }
   }
 
-
-
+/**
+  This method is used for the action stage in game.
+*/
   public static void action(){
   //empty
   }
 
+/**
+  This method is used for sleeping stage in game.
+*/
   public static void sleep(){
     day+=1;
   }
@@ -135,8 +141,8 @@ public class FinalProject{
   @param val1 surviving days of the player
   @return true if surviving days equal 60
 */
-  public static Boolean windays(int val1){
-    if(val1==60){
+  public static Boolean windays(){
+    if(day==60){
       return true;
     } else{
       return false;
@@ -145,12 +151,12 @@ public class FinalProject{
 
 /**
 the second condition to win: escaping from the city (i.e. arriving (10,14))
-@param coordinate the position of the player
+@param CurrentCoordinate the position of the player
 @return true if the player escapes from the city
 */
-  public static Boolean winout(int[] coordinate){
+  public static Boolean winout(){
     Boolean winout;
-    if(coordinate[0]==10 && coordinate[1]==14){
+    if(CurrentCoordinate[0]==0 && CurrentCoordinate[1]==10){
       winout = true;
     }else{
       winout = false;
@@ -160,13 +166,13 @@ the second condition to win: escaping from the city (i.e. arriving (10,14))
 
   /**
 use the 2 conditions above to determine whether the user has won
-@param windays boolean value to show whether the user has survived 60 days
-@param winout boolean value to show whether the user has escaped
+windays: method to show whether the user has survived 60 days
+winout: method to show whether the user has escaped
 @return true if at least one of the 2 conditions is satisfied, meaning the player has won
   */
-  public static Boolean win(boolean windays, boolean winout){
+  public static Boolean win(){
     Boolean win;
-    if(winout||windays){
+    if(winout()||windays()){
       win = true;
     }else{
       win = false;
@@ -281,9 +287,9 @@ use the 2 conditions above to determine whether the user has won
     System.out.printf("Everyday, you have three stages:move,act and sleep.%nDifferent buildings and status of buildings decide what choice you can have and possiblities for each result.%nSewer entrance can make you fast travel to the another sewer entrance.%n");
     Delay();
     System.out.printf("If you get injured in a battle, do not be scared: As long as you feel full, or rate of hungry is above 7, you can recover 10hp during sleep.%nBut when you are suffering from starving, you will lose hp during sleeping.%n");
-    System.out.printf("You will automatically consume two units of food everyday, if you do not have any food, then your hungry rate will drop by 3. Drop to zero equals to death and end of game. If you find food after being hungury for sometime, each day you eat food will add hungry rate by 4.%n");
+    System.out.printf("You will automatically consume two units of food everyday, if you do not have any food, then your hungry rate will drop by 3. Drop to zero equals to death and end of game. If you find food after being hungury for sometime, each day you eat food will add hungry rate by 4 (maximum is 10).%n");
     Delay();
-    System.out.printf("When you are injured, using bandage can help you recover faster. Each time you will consume 2 units and it will make you recover 100 percent faster when you are full, and even recover 10hp when hungry rate is between 4 to 7.%nThis buff will be removed two days later or you are no longer injured.%n");
+    System.out.printf("When you are injured, using bandage can help you recover faster. Each time you will consume 2 units and it will make you recover 100 percent faster when you are full, and even recover 10hp when hungry rate is between 5 to 7.%nThis buff will be removed two days later or you are no longer injured.%n");
     Delay();
     System.out.printf("You may caught serious disease when you enter some untidy places. This status can be cured by having one unit of medicine.%nIf you do not do it or run out of medicine, then you can not recover HP and will lose 5HP eveyday.%nIt's the end of tutorial. Good Luck!%n");
   }
@@ -308,7 +314,7 @@ use the 2 conditions above to determine whether the user has won
 */
   public static void PlayerStatus(){
     System.out.println("--------------------------------------------------------------------------------------------------------");
-    System.out.printf("It is the No.%1d since your shelter was destroyed.%n",day);
+    System.out.printf("It is the No.%1d day since your shelter was destroyed.%n",day);
     System.out.printf("Your HP is %1d, hungry rate is %1d.%n",hp,hungry);
     if(sick){
       System.out.printf("You are sick now.%n");
@@ -347,4 +353,46 @@ Delay the program for 6.5s, make the program show texts slowly.
       }
     }
 
+/**
+  This method is used to let players trade inside this game.
+  @return No returns needed
+*/
+  public static void Trade(){
+
+  }
+
+  /**
+  This method is used to check whether player lose the game.
+  @param hp hp is health point of the player.
+  @param hungry Hungry is rate of hunger.
+  @param sick Sick is a boolean type value that shows whether the player is sick.
+  @param injured Injured is a boolean type value that shows whether the player is injured.
+  @return No returns needed.
+  */
+  public static void Defeat(){
+    if(hp==0){
+      if(sick&&injured&&(hungry<5){
+        System.out.printf("You suffered from starving, injury and disease and finally fail to survive.%nYou become one of those victims of war.%n");
+        System.exit(1);
+      }else if(sick&&injured){
+        System.out.printf("In a war, lack of medical treatment is a lethal killer. And you are one of his victims.%n");
+        System.exit(1);
+      }else if(sick&&hungry<5){
+        System.out.printf("Sickness and hunger tortured you and finally take your lives.%n");
+        System.exit(1);
+      }else if(injured&&hungry<5){
+        System.out.printf("Suffered from injury and hunger, you died.%n");
+        System.exit(1);
+      }else if(injured){
+        System.out.printf("You bleed out and become one of victims of violence.%n");
+        System.exit(1);
+      }else{
+        System.out.printf("Disease corroded your health and finally killed you.%n");
+        System.exit(1);
+      }
+    }else if(hungry==0){
+      System.out.printf("For several days, you tried to find food. But you failed and finally starved to death.%nYour emaciated corpse is find by a UN rescue teammember who enter this city after the ceasefire order.%n");
+      System.exit(1);
+    }
+  }
 }
