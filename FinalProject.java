@@ -77,6 +77,8 @@ public class FinalProject{
     PlayerStatus();
     do{
       Scanner s = new Scanner(System.in);
+
+      System.out.println("Please enter a char to move. U for upwards, D for downwards, L for Leftwards and R for rightwards.");
       char M=s.nextLine().charAt(0);
       Move(M);
       PositionReport();
@@ -94,7 +96,7 @@ public class FinalProject{
   */
   public static Boolean Move(char M){
     //Input a char M input this subroutine as command of movement. If the movement is valid, it will change current CurrentCoordinate and return true.
-    System.out.println("Please enter a char to move. U for upwards, D for downwards, L for Leftwards and R for rightwards.");
+
     if (CurrentCoordinate[1]==0 && M=='L'){
       System.out.println("You are at the most left, cannot go left. Input again:");
       return false;
