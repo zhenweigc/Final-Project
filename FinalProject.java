@@ -191,7 +191,7 @@ public class FinalProject{
       System.out.println("5.Do Nothing");
       available+="5 ";
     }
-    if((CheckPosition("T A F W S O R H D".split("\\s+"))&&CheckStatus("b".split("\\s+")))||(CheckPosition("M".split("\\s+"))&&CheckStatus("r".split("\\s+")))){
+    if((CheckPosition("T A F W S O R H D".split("\\s+"))&&CheckStatus("b".split("\\s+")))||(CheckPosition("M".split("\\s+"))&&CheckStatus("r t".split("\\s+")))){
       System.out.println("6.Stealth in and tried to find supplies.");
       available+="6 ";
     }
@@ -281,9 +281,162 @@ public class FinalProject{
   }
 
 /**
+  Method to run when players choose to scavenge.
+  T A F W S O R P H D
+  @return No returns
 */
   public static void Scavenge(){
-
+    int foodbuff=0;
+    int medicinebuff=0;
+    int weaponbuff=0;
+    int bandagebuff=0;
+    int valuablesbuff=0;
+    int ammobuff=0;
+    int IDbuff=0;
+    int DiseaseChance=0;
+    int BadgeBuff=0;
+    switch(String.valueOf((Map[CurrentCoordinate[0]][CurrentCoordinate[1]]).charAt(0))){
+      case "T":
+        foodbuff+=5;
+        medicine+=2;
+        bandagebuff+=2;
+        weaponbuff+=0;
+        valuablesbuff+=1;
+        ammobuff+=0;
+        IDbuff+=0;
+        break;
+      case "A":
+        foodbuff+=3;
+        medicine+=2;
+        bandagebuff+=2;
+        weaponbuff+=0;
+        valuablesbuff+=2;
+        ammobuff+=1;
+        IDbuff+=0;
+        break;
+      case "F":
+        foodbuff-=5;
+        medicine+=3;
+        bandagebuff+=4;
+        weaponbuff+=0;
+        valuablesbuff-=5;
+        ammobuff-=3;
+        IDbuff+=0;
+        break;
+      case "W":
+        foodbuff+=2;
+        medicine+=6;
+        bandagebuff+=6;
+        weaponbuff+=3;
+        valuablesbuff+=3;
+        ammobuff+=2;
+        IDbuff+=0;
+        break;
+      case "S":
+        foodbuff+=0;
+        medicine+=3;
+        bandagebuff+=3;
+        weaponbuff-=5;
+        valuablesbuff+=1;
+        ammobuff-=5;
+        IDbuff+=0;
+        break;
+      case "O":
+        foodbuff+=1;
+        medicine+=0;
+        bandagebuff+=0;
+        weaponbuff-=5;
+        valuablesbuff+=5;
+        ammobuff-=5;
+        IDbuff+=4;
+        break;
+      case "R":
+        foodbuff-=7;
+        medicine-=7;
+        bandagebuff-=7;
+        weaponbuff-=7;
+        valuablesbuff-=7;
+        ammobuff-=7;
+        IDbuff+=6;
+        DiseaseChance-=6;
+        break;
+      case "P":
+        foodbuff-=7;
+        medicine-=7;
+        bandagebuff-=7;
+        weaponbuff-=5;
+        valuablesbuff+=3;
+        ammobuff-=5;
+        IDbuff+=2;
+        BadgeBuff+=3;
+        DiseaseChance-=4;
+        break;
+      case "H":
+        foodbuff+=1;
+        medicine+=5;
+        bandagebuff+=5;
+        weaponbuff-=5;
+        valuablesbuff-=3;
+        ammobuff-=5;
+        IDbuff+=0;
+        DiseaseChance+=3;
+        break;
+      default:
+        foodbuff+=1;
+        medicine+=5;
+        bandagebuff+=5;
+        weaponbuff-=5;
+        valuablesbuff-=3;
+        ammobuff-=5;
+        IDbuff+=0;
+        DiseaseChance+=3;
+        break;
+    }
+    switch(String.valueOf((Map[CurrentCoordinate[0]][CurrentCoordinate[1]]).charAt(1))){
+      case "w":
+        foodbuff-=1;
+        medicine-=1;
+        bandagebuff-=1;
+        weaponbuff-=1;
+        valuablesbuff-=1;
+        ammobuff-=1;
+        IDbuff+=0;
+        DiseaseChance+=0;
+        break;
+      case "r":
+        foodbuff-=2;
+        medicine-=2;
+        bandagebuff-=2;
+        weaponbuff-=2;
+        valuablesbuff-=2;
+        ammobuff-=2;
+        IDbuff+=0;
+        DiseaseChance-=2;
+        break;
+      case "n":
+        foodbuff+=0;
+        medicine+=0;
+        bandagebuff+=0;
+        weaponbuff+=0;
+        valuablesbuff+=1;
+        ammobuff+=0;
+        IDbuff+=0;
+        DiseaseChance+=0;
+        break;
+      default:
+        foodbuff-=2;
+        medicine-=2;
+        bandagebuff-=2;
+        weaponbuff-=2;
+        valuablesbuff-=2;
+        ammobuff-=2;
+        IDbuff+=0;
+        DiseaseChance-=2;
+        break;
+    }
+    System.out.printf("After searching for a long time, you stopped scavenging and started to see what you got.%n");
+    AddFood(foodbuff);
+    AddMedicine(medicinebuff);
   }
 
 /**
@@ -327,6 +480,55 @@ public class FinalProject{
   public static Boolean Escape(){
     return false;
   }
+
+/**
+  This method is used to add resources
+  @param Input FoodBuff value.
+  @return No return
+*/
+  public static void AddFood(int Input){
+    int rolled=AffectRollDice(Input);
+    if(rolled>14){
+      food+=6;
+      System.out.printf("You are lucky, you find a lot of food.%n'No need to worry about eating for a few days', you think.%n(food+6)%n");
+    }else if(rolled>11&&rolled<=14){
+      food+=4;
+      System.out.printf("You find six cans of beans.%n'Not plenty,' you think, 'but still good.'%n(food+4)%n");
+    }else if(rolled>8&&rolled<=11){
+      food+=3;
+      System.out.printf("You find three cans of meat.%n'At least I have more food now.', you think.%n(food+3)%n");
+    }else if(rolled>6&&rolled<=8){
+      food+=1;
+      System.out.printf("After a long search, you find a little food, but better than nothing.%n(food+1)%n");
+    }else{
+      food+=0;
+      System.out.printf("So disappionting: there is no trace of food.%n(food+0)%n");
+    }
+  }
+
+  /**
+    This method is used to add resources
+    @param Input FoodBuff value.
+    @return No return
+  */
+    public static void AddMedicine(int Input){
+      int rolled=AffectRollDice(Input);
+      if(rolled>15){
+        medicine+=3;
+        System.out.printf("You find three unused Antibiotic pills, which are extremely useful.%n(medicine+3)%n");
+      }else if(rolled>12&&rolled<=15){
+        medicine+=2;
+        System.out.printf("Two pills of cold medicine...can be savior at this difficult times.%n(medicine+2)%n");
+      }else if(rolled>9&&rolled<=12){
+        medicine+=1;
+        System.out.printf("You find one pill of medicine.%n'Can be my life-saving straw.', you think.%n(medicine+1)%n");
+      }else{
+        medicine+=0;
+        System.out.printf("You did not find any medicine.%nYou try to comfort yourself:'Medicine is always hard to find, take it easy.'%n(medicine+0)%n");
+      }
+    }
+
+
 
 /**
   This method is used when Reznov is inside a sewer and tries to go to another sewer entrance.
