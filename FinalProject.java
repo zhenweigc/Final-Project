@@ -45,6 +45,9 @@ public class FinalProject{
   };
   //String[15][11]
 
+  //All 12 types of buildings
+  public static final String[] Btype={"T","M","A","F","W","S","O","R","P","H","D","G"};
+
   /**
   CurrentCoordinate represents the current coordinate of the player,
   with starting point at (14,0)
@@ -73,14 +76,17 @@ public class FinalProject{
     System.out.println("After the move, current coordinate is ("+CurrentCoordinate[1]+","+CurrentCoordinate[0]+")");
     */
     //Previous Codes are used to test whether subroutine M works properly.
+    System.out.println("Please enter a char to move. U for upwards, D for downwards, L for Leftwards and R for rightwards.");
     PositionReport();
     PlayerStatus();
     do{
       Scanner s = new Scanner(System.in);
-
       System.out.println("Please enter a char to move. U for upwards, D for downwards, L for Leftwards and R for rightwards.");
-      char M=s.nextLine().charAt(0);
-      Move(M);
+      Boolean ValidMove=true;
+      do{
+      //  char M=s.nextLine().charAt(0);
+        ValidMove=Move(s.nextLine().charAt(0));
+      }while(!ValidMove);
       PositionReport();
       PlayerStatus();
       action();
@@ -91,7 +97,7 @@ public class FinalProject{
 
   /**
   This subroutine is used for player movement.
-  @param M the user's input, if valid it will change current CurrentCoordinate
+  @param M the player's input, if valid it will change current CurrentCoordinate
   @return return true, if the movement is valid; otherwise, false
   */
   public static Boolean Move(char M){
@@ -130,18 +136,235 @@ public class FinalProject{
   }
 
 /**
+  This method is used to check whether current building type matches one of those inputed by the array
+  @param CurrentBtype A String that contains the building type of Reznov's current position.
+  @return A boolean that will be used in an if conditional to judge whether following codes will be executed
+*/
+  public static Boolean CheckPosition(String[] input){
+    String CurrentBtype=String.valueOf((Map[CurrentCoordinate[0]][CurrentCoordinate[1]]).charAt(0));
+    for(int i=0;i<input.length;i++){
+      if(CurrentBtype.equals(input[i])){
+        return true;
+      }
+    }
+    return false;
+  }
+
+/**
+  This method is used to check whether current building status matches one of those inputed by the array
+  @param CurrentBstatus A String that contains the building status of Reznov's current position.
+  @return A boolean that will be used in an if conditional to judge whether following codes will be executed
+*/
+  public static Boolean CheckStatus(String[] input){
+    String CurrentBstatus=String.valueOf((Map[CurrentCoordinate[0]][CurrentCoordinate[1]]).charAt(1));
+    for(int i=0;i<input.length;i++){
+      if(CurrentBstatus.equals(input[i])){
+        return true;
+      }
+    }
+    return false;
+  }
+
+/**
+  This method will print out all actions available at Reznov's current position.
+  @return Return an array of available choice No.
+*/
+  public static int[] PrintAction(){
+    String available="";
+    if(CheckPosition("T A F W S O R P H D".split("\\s+"))){
+      System.out.println("1.Scavenge");
+      available+="1 ";
+    }
+    if(CheckPosition("T A F W S O R H D".split("\\s+"))&&CheckStatus("r".split("\\s+"))){
+      System.out.println("2.Steal");
+      available+="2 ";
+    }
+    if(CheckStatus("t".split("\\s+"))){
+      System.out.println("3.Trade");
+      available+="3 ";
+    }
+    if(CheckPosition("P".split("\\s+"))){
+      System.out.println("4.Fast Travel");
+      available+="4 ";
+    }
+    if(true){
+      System.out.println("5.Do Nothing");
+      available+="5 ";
+    }
+    if((CheckPosition("T A F W S O R H D".split("\\s+"))&&CheckStatus("b".split("\\s+")))||(CheckPosition("M".split("\\s+"))&&CheckStatus("r".split("\\s+")))){
+      System.out.println("6.Stealth in and tried to find supplies.");
+      available+="6 ";
+    }
+    if(CheckPosition("H".split("\\s+"))&&CheckStatus("r".split("\\s+"))&&(injured||sick)){
+      System.out.println("7.Ask doctors inside to cure your disease and bandage your injuries to make you recover.");
+      available+="7 ";
+    }
+    if(CheckPosition("D".split("\\s+"))&&CheckStatus("r".split("\\s+"))){
+      System.out.println("8.Ask priests for material relief.");
+      available+="8 ";
+    }
+    if(CheckPosition("D".split("\\s+"))&&CheckStatus("r".split("\\s+"))){
+      System.out.println("9.Ask priests for mental relief.");
+      available+="9 ";
+    }
+    if(CheckPosition("G".split("\\s+"))){
+      System.out.println("10.Tried to cheat rebel checkpoints and sneak out of the city");
+      available+="10 ";
+    }
+    String[] Raw1=available.split("\\s+");
+    int[] output=new int[Raw1.length];
+    for(int j=0;j<output.length;j++){
+      output[j]=Integer.parseInt(Raw1[j]);
+    }
+    return output;
+  }
+
+/**
+  This method will check whether the No. input by players is among those available choices.
+  @param decision Choice made by Players.
+  @param PossibleDecision The integer array produced by PrintAction().
+  @return A Boolean value of true or false.
+*/
+  public static Boolean CheckAvailable(int decision,int[] PossibleDecision){
+    for(int k=0;k<PossibleDecision.length;k++){
+      if(decision==PossibleDecision[k]){
+        return true;
+      }
+    }
+    return false;
+  }
+/**
   This method is used for the action stage in game.
   @return This method does not need to return.
 */
   public static void action(){
     System.out.printf("Time to do something....%n");
     System.out.printf("You need to make a choice among actions available in your current position. If you have decided, enter the number before the choice to choose. Choose wisely.%n");
+    Scanner y=new Scanner(System.in);
+    int[] Available=PrintAction();
+    int choice=0;
+    while(!CheckAvailable(choice,Available)){
+      System.out.println("Please input the No. you decide which is in font of available choices.");
+      choice=TextIO.getlnInt();
+    }
+    switch(choice){
+      case 1:
+        Scavenge();
+        break;
+      case 2:
+        Steal();
+        break;
+      case 3:
+        Trade();
+        break;
+      case 4:
+        Teleport();
+        break;
+      case 5:
+        break;
+      case 6:
+        Stealth();
+        break;
+      case 7:
+        DocHeal();
+        break;
+      case 8:
+        AskR();
+        break;
+      case 9:
+        AskM();
+        break;
+      default:
+        Escape();
+        break;
+    }
   }
 
 /**
-
 */
-  //public static
+  public static void Scavenge(){
+
+  }
+
+/**
+*/
+  public static void Steal(){
+
+  }
+
+/**
+*/
+  public static void Trade(){
+
+  }
+
+/**
+*/
+  public static void Stealth(){
+
+  }
+
+/**
+*/
+  public static void DocHeal(){
+
+}
+
+/**
+*/
+  public static void AskR(){
+
+  }
+
+/**
+*/
+  public static void AskM(){
+
+  }
+
+/**
+*/
+  public static Boolean Escape(){
+    return false;
+  }
+
+/**
+  This method is used when Reznov is inside a sewer and tries to go to another sewer entrance.
+  @param SewerCoordinate It stores coordinates of Sewer entrance in the map.(Y,X)
+  @param input No. of the row in SewerCoordinate that the player want to teleport to.
+  @param o No. of the row in SewerCoordinate that Reznov is currently at.
+  @return There is no return needed.
+*/
+  public static void Teleport(){
+    int[][] SewerCoordinate={
+      {11,1},
+      {2,3},
+      {5,5},
+      {14,5},
+      {10,7},
+      {5,8},
+      {7,9},
+      {13,9},
+      {11,10}
+    };
+    int o=0;
+    for(int i=0;i<9;i++){
+      if((SewerCoordinate[i][0]==CurrentCoordinate[0])&&(SewerCoordinate[i][1]==CurrentCoordinate[1])){
+        o=i+1;
+      }else{
+        System.out.printf("%1d.{%1d,%1d}%n",(i+1),SewerCoordinate[i][1],SewerCoordinate[i][0]);
+      }
+    }
+    System.out.printf("Please choose and input one of those No. in front of the coordinate you want to travel to.%n");
+    int input=0;
+    while(input==o||input>9||input<1){
+      System.out.printf("Invalid input, input again.%n");
+        input=TextIO.getlnInt();
+    }
+    System.out.printf("Enduring stench of sewers, you finally reached your destination.%n");
+    CurrentCoordinate[0]=SewerCoordinate[input-1][0];
+    CurrentCoordinate[1]=SewerCoordinate[input-1][1];
+  }
 
 /**
   This method is used for sleeping stage in game.
@@ -157,8 +380,8 @@ public class FinalProject{
   }
 
 /**
-  the first condition to win: if the player could survive 60 days, then win
-  @param day surviving days of the player
+  the first condition to win: if Reznov could survive 60 days, then win
+  @param day surviving days of Reznov
   @return true if surviving days equal 60
 */
   public static Boolean windays(){
@@ -186,9 +409,9 @@ the second condition to win: escaping from the city (i.e. arriving (10,14))
 
   /**
 use the 2 conditions above to determine whether the user has won
-windays: method to show whether the user has survived 60 days
-winout: method to show whether the user has escaped
-@return true if at least one of the 2 conditions is satisfied, meaning the player has won
+windays: method to show whether Reznov has survived 60 days
+winout: method to show whether Reznov has escaped
+@return true if at least one of the 2 conditions is satisfied, meaning Reznov(and players) has won
   */
   public static Boolean win(){
     Boolean win;
@@ -201,7 +424,7 @@ winout: method to show whether the user has escaped
   }
 
   /**
-  This method is used to tell players where are they now and what is the building&status of their position
+  This method is used to tell players where is Reznov now and what is the building&status of his position
   @return No returns
   */
   public static void PositionReport(){
@@ -311,7 +534,7 @@ winout: method to show whether the user has escaped
     Delay();
     System.out.printf("When you are injured, using bandage can help you recover faster. Each time you will consume 2 units and it will make you recover 100 percent faster when you are full, and even recover 10hp when hungry rate is between 5 to 7.%nThis buff will be removed two days later or you are no longer injured.%n");
     Delay();
-    System.out.printf("You may caught serious disease when you enter some untidy places. This status can be cured by having one unit of medicine.%nIf you do not do it or run out of medicine, then you can not recover HP and will lose 5HP eveyday.%nIt's the end of tutorial. Good Luck!%n");
+    System.out.printf("You may caught serious disease when you enter some untidy places. This status can be cured by having one unit of medicine.%nIf you do not do it or run out of medicine, then you can not recover HP and will lose 5HP eveyday.%nIt's the end of tutorial. Good Luck!%n%n%n%n");
   }
 
 /**
@@ -329,7 +552,7 @@ winout: method to show whether the user has escaped
   }
 
 /**
-  This method presents player's current status.
+  This method presents Reznov's current status.
   @param sick A Boolean value that shows whether Reznov is sick or not.
   @param injured A Boolean value that shows whether Reznov is injured or not.
   @param pistol A Boolean value that shows whether Reznov has a pistol or not.
@@ -395,13 +618,6 @@ Delay the program for 6.5s, make the program show texts slowly.
       }
     }
 
-/**
-  This method is used to let players trade inside this game.
-  @return No returns needed
-*/
-  public static void Trade(){
-
-  }
 
   /**
   This method is used to check whether player lose the game.
@@ -439,15 +655,33 @@ Delay the program for 6.5s, make the program show texts slowly.
   }
 
   /**
-  This method will generate a random number in order to decide what results will happen when the player make a choice.
+  This method will generate a random number[1,16] in order to decide fate of Reznov (what results will happen) when the player make a choice.
   The higher the number generated is, the better the result.
-  @param i An integer that determine how many dices will be rolled at the same time. (Determine range of the random number.)
   @return Return the randomly generated integer.
   */
-  public static int RollDice(int i){
+  public static int RollDice(){
     Random r=new Random();
-    int output=(r.nextInt(6*i))+1;
+    int output=r.nextInt(16)+1;
     return output;
+  }
+
+/**
+  This method is used to change result of RollDice()
+  For example, if Reznov choose to scavange in an appartment, he can find one unit of medicine when the RollDice() result is bigger than 10.
+  But in a hospital, of course he will have a bigger chance. Then, AffectRollDice(3) will add 3 to result of RollDice().
+  If he is in a wreckage, then it will be AffectRollDice(-3) because it is much harder to find medicine in wreckages.
+  @param input An integer(can be either positive or negative) that influence the result and change the possiblity.
+  @return Return an integer than have been affected.
+*/
+  public static int AffectRollDice(int input){
+    int output=RollDice()+input;
+    if(output>16){
+      return 16;
+    }else if(output<1){
+      return 1;
+    }else{
+      return output;
+    }
   }
 
 
