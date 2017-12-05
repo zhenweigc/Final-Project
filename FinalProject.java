@@ -437,12 +437,149 @@ public class FinalProject{
     System.out.printf("After searching for a long time, you stopped scavenging and started to see what you got.%n");
     AddFood(foodbuff);
     AddMedicine(medicinebuff);
+    AddBandage(bandagebuff);
+    AddValuables(valuablesbuff);
+    AddAmmo(ammobuff);
+    AddWeapon(weaponbuff);
+    getDisease(DiseaseChance);
+    getID(IDbuff);
+    getBadge(BadgeBuff);
+  }
+
+  /**
+    pick a random element of a list of Strings
+    @param list the array of Strings
+    @return a randomly selected member of the list
+  */
+  public static String pickRandom(String[] list){
+    Random f = new Random();
+    int k = f.nextInt(list.length);
+    return list[k];
   }
 
 /**
 */
   public static void Steal(){
-
+    int foodbuff=0;
+    int medicinebuff=0;
+    int weaponbuff=0;
+    int bandagebuff=0;
+    int valuablesbuff=0;
+    int ammobuff=0;
+    int stealBuff=2;
+    String[] steal={
+      "'Stealing, of course, is a crime, and a very impolite thing to do. But like most impolite things, it is excusable under certain circumstances.' --Lemony Snicket",
+      "'If you don't get caught, you deserve everything you steal.' --Daniel Nayeri",
+      "'Stealers, keepers.' --Ilona Andrews",
+      "'Clothes make the man. Especially the pockets.' --Ljupka Cvetanova",
+      "'Taking books can't be counted as stealing...for a scholar...can't be counted as stealing.' --Yiji Kong"
+    };
+    System.out.printf("%s%n",pickRandom(steal));
+    Moral-=5;
+    int L=RollDice();
+    if(L>7){
+      switch(String.valueOf((Map[CurrentCoordinate[0]][CurrentCoordinate[1]]).charAt(0))){
+        case "T":
+          foodbuff+=5;
+          medicine+=2;
+          bandagebuff+=2;
+          weaponbuff+=0;
+          valuablesbuff+=1;
+          ammobuff+=0;
+          break;
+        case "A":
+          foodbuff+=3;
+          medicine+=2;
+          bandagebuff+=2;
+          weaponbuff+=0;
+          valuablesbuff+=2;
+          ammobuff+=1;
+          break;
+        case "F":
+          foodbuff-=5;
+          medicine+=3;
+          bandagebuff+=4;
+          weaponbuff+=0;
+          valuablesbuff-=5;
+          ammobuff-=3;
+          break;
+        case "W":
+          foodbuff+=2;
+          medicine+=6;
+          bandagebuff+=6;
+          weaponbuff+=3;
+          valuablesbuff+=3;
+          ammobuff+=2;
+          break;
+        case "S":
+          foodbuff+=0;
+          medicine+=3;
+          bandagebuff+=3;
+          weaponbuff-=5;
+          valuablesbuff+=1;
+          ammobuff-=5;
+          break;
+        case "O":
+          foodbuff+=1;
+          medicine+=0;
+          bandagebuff+=0;
+          weaponbuff-=5;
+          valuablesbuff+=5;
+          ammobuff-=5;
+          break;
+        case "R":
+          foodbuff-=7;
+          medicine-=7;
+          bandagebuff-=7;
+          weaponbuff-=7;
+          valuablesbuff-=7;
+          ammobuff-=7;
+          break;
+        case "H":
+          foodbuff+=1;
+          medicine+=5;
+          bandagebuff+=5;
+          weaponbuff-=5;
+          valuablesbuff-=3;
+          ammobuff-=5;
+          Moral-=5;
+          break;
+        default:
+          foodbuff+=1;
+          medicine+=5;
+          bandagebuff+=5;
+          weaponbuff-=5;
+          valuablesbuff-=3;
+          ammobuff-=5;
+          Moral-=5;
+          break;
+      }
+        foodbuff-=2;
+        medicine-=2;
+        bandagebuff-=2;
+        weaponbuff-=2;
+        valuablesbuff-=2;
+        ammobuff-=2;
+        System.out.printf("You sneaked in, evade attentions, grabbed a bag and ran out.%nAfter you are sure that you are safe, you open the bag and begin counting what you steal.%n");
+        AddFood(foodbuff);
+        AddMedicine(medicinebuff);
+        AddBandage(bandagebuff);
+        AddValuables(valuablesbuff);
+        AddAmmo(ammobuff);
+        AddWeapon(weaponbuff);
+    }else{
+      System.out.printf("Your attempt to crime is discovered,you hear noises and sounds of loading guns.%n");
+      if((pistol||AutomaticRifle)&&ammo>=1){
+        System.out.printf("You jumped out of window, shot some bullets back.%nIt sounds that you hit some civilians there and they stop chasing you.%n");
+        Moral-=15;
+        ammo-=1;
+      }else{
+        System.out.printf("You began to run away.%nWhile you are running away, people inside this house shot you. You feel that a bullet hits you.%n");
+        injured=true;
+        hp-=10;
+        Defeat();
+      }
+    }
   }
 
 /**
@@ -460,8 +597,18 @@ public class FinalProject{
 /**
 */
   public static void DocHeal(){
-
-}
+    System.out.printf("You decided to ask doctors for help and walked in.%n");
+    int L=RollDice();
+    if(L>8&&Moral>=45){
+      System.out.printf("A docter responses to your demand and help you.%n");
+      sick=false;
+      injured=false;
+    }else if(L<=8&&Moral>=45){
+      System.out.printf("All doctors are busy helping other refugees, they can not help you.%n");
+    }else{
+      System.out.printf("No doctors want to help you because your bad reputation.%n");
+    }
+  }
 
 /**
 */
@@ -489,7 +636,7 @@ public class FinalProject{
   public static void AddFood(int Input){
     int rolled=AffectRollDice(Input);
     if(rolled>14){
-      food+=6;
+      food+=5;
       System.out.printf("You are lucky, you find a lot of food.%n'No need to worry about eating for a few days', you think.%n(food+6)%n");
     }else if(rolled>11&&rolled<=14){
       food+=4;
@@ -506,29 +653,144 @@ public class FinalProject{
     }
   }
 
-  /**
-    This method is used to add resources
-    @param Input FoodBuff value.
-    @return No return
-  */
-    public static void AddMedicine(int Input){
-      int rolled=AffectRollDice(Input);
-      if(rolled>15){
-        medicine+=3;
-        System.out.printf("You find three unused Antibiotic pills, which are extremely useful.%n(medicine+3)%n");
-      }else if(rolled>12&&rolled<=15){
-        medicine+=2;
-        System.out.printf("Two pills of cold medicine...can be savior at this difficult times.%n(medicine+2)%n");
-      }else if(rolled>9&&rolled<=12){
-        medicine+=1;
-        System.out.printf("You find one pill of medicine.%n'Can be my life-saving straw.', you think.%n(medicine+1)%n");
+/**
+  This method is used to add resources
+  @param Input medicineBuff value.
+  @return No return
+*/
+  public static void AddMedicine(int Input){
+    int rolled=AffectRollDice(Input);
+    if(rolled>15){
+      medicine+=3;
+      System.out.printf("You find three unused Antibiotic pills, which are extremely useful.%n(medicine+3)%n");
+    }else if(rolled>12&&rolled<=15){
+      medicine+=2;
+      System.out.printf("Two pills of cold medicine...can be savior at this difficult times.%n(medicine+2)%n");
+    }else if(rolled>9&&rolled<=12){
+      medicine+=1;
+      System.out.printf("You find one pill of medicine.%n'Can be my life-saving straw.', you think.%n(medicine+1)%n");
+    }else{
+      medicine+=0;
+      System.out.printf("You did not find any medicine.%nYou try to comfort yourself:'Medicine is always hard to find, take it easy.'%n(medicine+0)%n");
+    }
+  }
+
+/**
+  This method is used to add resources
+  @param Input bandageBuff value.
+  @return No return
+*/
+  public static void AddBandage(int Input){
+    int rolled=AffectRollDice(Input);
+    if(rolled>15){
+      bandage+=3;
+      System.out.printf("You find an first-aid kit, which contains bandages that can be used to treat wounds.%n(bandage+3)%n");
+    }else if(rolled>14&&rolled<=15){
+      bandage+=1;
+      System.out.printf("You find some clean gauze and alcohol which can be used together as simple bandage.%n(bandage+1)%n");
+    }else{
+      bandage+=0;
+      System.out.printf("You did not find any bandages.'%n(bandage+0)%n");
+    }
+  }
+
+/**
+  This method is used to add resources
+  @param Input valuablesbuff value.
+  @return No return
+*/
+  public static void AddValuables(int Input){
+    int rolled=AffectRollDice(Input);
+    if(rolled>=16){
+      valuables+=2;
+      System.out.printf("You find a gold ring. War still has not wipe out value of gold yet.%n'Maybe people at trade station will like it?',you think%n(valuables+2)%n");
+    }else if(rolled>13&&rolled<16){
+      valuables+=1;
+      System.out.printf("Two boxes of cigarettes...Cigarettes gradually became hard currency after war began.%n(valuables+1)%n");
+    }else{
+      valuables+=0;
+      System.out.printf("Nothing unexpected.'%n(valuables+0)%n");
+    }
+  }
+
+/**
+  This method is used to add resources
+  @param Input ammobuff value.
+  @return No return
+*/
+  public static void AddAmmo(int Input){
+    int rolled=AffectRollDice(Input);
+    if(rolled>=15){
+      ammo+=3;
+      System.out.printf("You find some cartridge cases and a box of bullets, seems that there was a fight here.%n(ammo+3)%n");
+    }else if(rolled>11&&rolled<15){
+      ammo+=2;
+      System.out.printf("You find some bullets.%n(ammo+2)%n");
+    }else{
+      ammo+=0;
+    }
+  }
+
+/**
+  This method is used to add resources
+  @param Input weaponbuff value.
+  @return No return
+*/
+  public static void AddWeapon(int Input){
+    int rolled=AffectRollDice(Input);
+    if(rolled==16){
+      System.out.printf("You see something in a box...%n");
+      if(RollDice()>14){
+        System.out.printf("...And it is an automatic rifle.%nFor a civilian, this is a weapon that can protect you well and may even transform into one of those crminals.%n");
+        AutomaticRifle=true;
       }else{
-        medicine+=0;
-        System.out.printf("You did not find any medicine.%nYou try to comfort yourself:'Medicine is always hard to find, take it easy.'%n(medicine+0)%n");
+        pistol=true;
+        System.out.printf("...And it is a pistol, a guarantee of safety.%n");
       }
     }
+  }
 
+/**
+  This method is used to add resources
+  @param Input DiseaseChance value.
+  @return No return
+*/
+  public static void getDisease(int Input){
+    int rolled=AffectRollDice(Input);
+    if(rolled>4){
+    }else{
+      sick=true;
+      System.out.printf("You are not feeling well, maybe you touched something that you should not touch?%n(You are sick.)%n");
+    }
+  }
 
+/**
+  This method is used to add resources
+  @param Input IDbuff value.
+  @return No return
+*/
+  public static void getID(int Input){
+    int rolled=AffectRollDice(Input);
+    if(rolled>15){
+      spyID=true;
+      System.out.printf("You find an ID card. It looks wired...'Possible once owned by a spy in this city', you think.%n(You now have a spy's ID, which can help you to cheat rebels.)%n");
+    }else{
+    }
+  }
+
+/**
+  This method is used to add resources
+  @param Input weaponbuff value.
+  @return No return
+*/
+  public static void getBadge(int Input){
+    int rolled=AffectRollDice(Input);
+    if(rolled>15){
+      Badge=true;
+      System.out.printf("You find a badge with wired symbols and pattern.'Government newspaper once reported that this was a symbol of rebel spy...', you think.%n(You now have a spy's badge, which can help you to cheat rebels.)%n");
+    }else{
+    }
+  }
 
 /**
   This method is used when Reznov is inside a sewer and tries to go to another sewer entrance.
@@ -572,6 +834,22 @@ public class FinalProject{
   This method is used for sleeping stage in game.
 */
   public static void sleep(){
+
+    if(food>=2){
+      food-=2;
+      System.out.printf("You eat enough food.%n");
+      hungry+=4;
+      if(hungry>10){
+        hungry=10;
+      }
+    }else if(food==1){
+      food-=1;
+      System.out.printf("You do not have enough food.%n");
+      hungry-=1;
+    }else{
+      System.out.printf("You do not have any food, so you need to go to bed hungry.%n");
+      hungry-=3;
+    }
     day+=1;
   }
 
@@ -734,7 +1012,7 @@ winout: method to show whether Reznov has escaped
     System.out.printf("If you get injured in a battle, do not be scared: As long as you feel full, or rate of hungry is above 7, you can recover 10hp during sleep.%nBut when you are suffering from starving, you will lose hp during sleeping.%n");
     System.out.printf("You will automatically consume two units of food everyday, if you do not have any food, then your hungry rate will drop by 3. Drop to zero equals to death and end of game. If you find food after being hungury for sometime, each day you eat food will add hungry rate by 4 (maximum is 10).%n");
     Delay();
-    System.out.printf("When you are injured, using bandage can help you recover faster. Each time you will consume 2 units and it will make you recover 100 percent faster when you are full, and even recover 10hp when hungry rate is between 5 to 7.%nThis buff will be removed two days later or you are no longer injured.%n");
+    System.out.printf("When you are injured, using bandage can help you recover faster and remove the 'injured' debuff.%nEach time you will consume 2 units and it will make you recover 100 percent faster when you are full, and even recover 10hp when hungry rate is between 5 to 7.%nThis buff will be removed as long as you are no longer injured.%n");
     Delay();
     System.out.printf("You may caught serious disease when you enter some untidy places. This status can be cured by having one unit of medicine.%nIf you do not do it or run out of medicine, then you can not recover HP and will lose 5HP eveyday.%nIt's the end of tutorial. Good Luck!%n%n%n%n");
   }
