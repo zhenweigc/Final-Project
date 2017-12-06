@@ -92,9 +92,7 @@ public class FinalProject{
       PositionReport();
       PlayerStatus();
       action();
-      PlayerStatus();
       sleep();
-      PlayerStatus();
     }while(!win());
     End();
   }
@@ -1597,7 +1595,7 @@ winout: method to show whether Reznov has escaped
     }else{
       System.out.printf("You do not have any weapons.%n");
     }
-    System.out.printf("You have %1d food, %1d medicine, %1d bandage, 1%d ammos and %1d valuables.%n",food,medicine,bandage,ammo,valuables);
+    System.out.printf("You have %1d food, %1d medicine, %1d bandage, %1d ammos and %1d valuables.%n",food,medicine,bandage,ammo,valuables);
     if(FastRecover){
       System.out.printf("You have bandaged yourself.%n");
     }
