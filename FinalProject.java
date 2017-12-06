@@ -305,7 +305,8 @@ public class FinalProject{
         weaponbuff+=0;
         valuablesbuff+=1;
         ammobuff+=0;
-        IDbuff+=0;
+        BadgeBuff-=1;
+        IDbuff-=1;
         break;
       case "A":
         foodbuff+=3;
@@ -314,7 +315,8 @@ public class FinalProject{
         weaponbuff+=0;
         valuablesbuff+=2;
         ammobuff+=1;
-        IDbuff+=0;
+        IDbuff-=1;
+        BadgeBuff-=1;
         break;
       case "F":
         foodbuff-=5;
@@ -323,7 +325,8 @@ public class FinalProject{
         weaponbuff+=0;
         valuablesbuff-=5;
         ammobuff-=3;
-        IDbuff+=0;
+        BadgeBuff-=1;
+        IDbuff-=1;
         break;
       case "W":
         foodbuff+=2;
@@ -332,6 +335,7 @@ public class FinalProject{
         weaponbuff+=3;
         valuablesbuff+=3;
         ammobuff+=2;
+        BadgeBuff+=0;
         IDbuff+=0;
         break;
       case "S":
@@ -341,7 +345,8 @@ public class FinalProject{
         weaponbuff-=5;
         valuablesbuff+=1;
         ammobuff-=5;
-        IDbuff+=0;
+        IDbuff-=1;
+        BadgeBuff-=1;
         break;
       case "O":
         foodbuff+=1;
@@ -350,7 +355,8 @@ public class FinalProject{
         weaponbuff-=5;
         valuablesbuff+=5;
         ammobuff-=5;
-        IDbuff+=4;
+        BadgeBuff-=1;
+        IDbuff+=1;
         break;
       case "R":
         foodbuff-=7;
@@ -359,7 +365,8 @@ public class FinalProject{
         weaponbuff-=7;
         valuablesbuff-=7;
         ammobuff-=7;
-        IDbuff+=6;
+        IDbuff+=3;
+        BadgeBuff+=1;
         DiseaseChance-=6;
         break;
       case "P":
@@ -370,7 +377,7 @@ public class FinalProject{
         valuablesbuff+=3;
         ammobuff-=5;
         IDbuff+=2;
-        BadgeBuff+=3;
+        BadgeBuff+=2;
         DiseaseChance-=4;
         break;
       case "H":
@@ -380,8 +387,9 @@ public class FinalProject{
         weaponbuff-=5;
         valuablesbuff-=3;
         ammobuff-=5;
-        IDbuff+=0;
-        DiseaseChance+=3;
+        IDbuff-=1;
+        BadgeBuff-=1;
+        DiseaseChance+=4;
         break;
       default:
         foodbuff+=1;
@@ -390,8 +398,9 @@ public class FinalProject{
         weaponbuff-=5;
         valuablesbuff-=3;
         ammobuff-=5;
-        IDbuff+=0;
-        DiseaseChance+=3;
+        IDbuff-=1;
+        BadgeBuff-=1;
+        DiseaseChance+=2;
         break;
     }
     switch(String.valueOf((Map[CurrentCoordinate[0]][CurrentCoordinate[1]]).charAt(1))){
@@ -1228,10 +1237,12 @@ public class FinalProject{
 */
   public static void getID(int Input){
     int rolled=AffectRollDice(Input);
-    if(rolled>15){
-      spyID=true;
-      System.out.printf("You find an ID card. It looks wired...'Possible once owned by a spy in this city', you think.%n(You now have a spy's ID, which can help you to cheat rebels.)%n");
-    }else{}
+    if(!spyID){
+      if(rolled>15){
+        spyID=true;
+        System.out.printf("You find an ID card. It looks wired...'Possible once owned by a spy in this city', you think.%n(You now have a spy's ID, which can help you to cheat rebels.)%n");
+      }
+    }
   }
 
 /**
@@ -1241,11 +1252,13 @@ public class FinalProject{
 */
   public static void getBadge(int Input){
     int rolled=AffectRollDice(Input);
-    if(rolled>15){
-      Badge=true;
-      System.out.printf("You find a badge with wired symbols and pattern.'Government newspaper once reported that this was a symbol of rebel spy...', you think.%n(You now have a spy's badge, which can help you to cheat rebels.)%n");
-    }else{}
+    if(!Badge){
+      if(rolled>15){
+        Badge=true;
+        System.out.printf("You find a badge with wired symbols and pattern.'Government newspaper once reported that this was a symbol of rebel spy...', you think.%n(You now have a spy's badge, which can help you to cheat rebels.)%n");
+    }
   }
+}
 
 /**
   This method is used when Reznov is inside a sewer and tries to go to another sewer entrance.
