@@ -1635,7 +1635,7 @@ winout: method to show whether Reznov has escaped
   @return No returns needed.
 */
   public static void PlayerItemStatus(){
-    System.out.printf("You have %1d food, %1d medicine, %1d bandage, 1%d ammos and %1d valuables.%n",food,medicine,bandage,ammo,valuables);
+    System.out.printf("You have %1d food, %1d medicine, %1d bandage, %1d ammos and %1d valuables.%n",food,medicine,bandage,ammo,valuables);
     if(pistol&&AutomaticRifle){
       System.out.printf("You have weapons.%n");
     }else if(pistol||AutomaticRifle){
