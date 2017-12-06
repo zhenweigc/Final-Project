@@ -577,12 +577,12 @@ public class FinalProject{
       System.out.printf("Your attempt to crime is discovered,you hear noises and sounds of loading guns.%n");
       if((pistol||AutomaticRifle)&&ammo>=1){
         System.out.printf("You jumped out of window, shot some bullets back.%nIt sounds that you hit some civilians there and they stop chasing you.%n");
-        Moral-=15;
+        Moral-=10;
         ammo-=1;
       }else{
         System.out.printf("You began to run away.%nWhile you are running away, people inside this house shoot you. You feel that a bullet hits you.%n");
         injured=true;
-        hp-=10;
+        hp-=15;
         Defeat();
       }
     }
@@ -1338,7 +1338,7 @@ public class FinalProject{
       hp+=10;
       System.out.println("Keeping your stomach being filled by food makes you recover.");
     }else if(hungry<5){
-      System.out.println("Due to starving, your hp is minused by 10.")
+      System.out.println("Due to starving, your hp is minused by 10.");
       hp-=10;
     }else{
       System.out.println("You begin to feel hungry. If you still do not eat food tomorrow, you may have trouble.");
@@ -1358,7 +1358,29 @@ public class FinalProject{
 /**
 */
   public static void End(){
-    if()
+    System.out.printf("%n%n-------------------------------------------------------------------------------%n%n");
+    Delay();
+    System.out.printf("You survived.%n");
+    Delay();
+    if(TryEscape){
+      System.out.printf("Utilizing your wisdom, you escaped the city and this region in front of rebels.%n");
+    }else{
+      System.out.printf("After you drew sixty tally marks on your diary, UN finally make rebels and government ceasefire and negotiate.%nShadow of death no longer shrouds this city. You and other civilians flee out as refugees.%n");
+    }
+    Delay();
+    if(Moral>=85){
+      System.out.printf("While trying to survive, you did not commit many crimes.%nIn rest of your life, you will not suffer much from your war experience.%n");
+    }else if(Moral<85&&Moral>=65){
+      System.out.printf("Struggling to survive, you need to commit crime. Although you did it only you had to, but this negative experience make you feel uncomfortable when you recall your memories even decades later.%n");
+    }else if(Moral<65&&Moral>=40){
+      System.out.printf("You commited some crimes to survive, and you will always remeber what you did.%nIs surviving through the war really a good thing for you?%nWhatever your answer is, those memories tortured you from time to time.%n");
+    }else if(Moral<40&&Moral>=20){
+      System.out.printf("Stealing,killing...You tried all of them during the war.%nAlthough you told yourself that you did them because you have to.%nBut is that true? Anyway, war time memories will torture your mind from time to time.%n");
+    }else{
+      System.out.printf("How much crime you commmited?%nYou can not remember the exact number.%nHowever, when you dreamed at night, you still dreamed of faces of every vitcims who were dead directly or indirectly of your bullets and thefts...%n");
+    }
+    Delay();
+    System.out.printf("Thanks for playing!%n%nProducers:%nRuiyang Hu%nCheng Ge%nWei Lu%nEric Patterson%n");
   }
 
 /**
@@ -1700,6 +1722,5 @@ Delay the program for 6.5s, make the program show texts slowly.
       return output;
     }
   }
-
 
 }
