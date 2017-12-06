@@ -106,16 +106,16 @@ public class FinalProject{
     //Input a char M input this subroutine as command of movement. If the movement is valid, it will change current CurrentCoordinate and return true.
 
     if (CurrentCoordinate[1]==0 && M=='L'){
-      System.out.println("You are at the most left, cannot go left. Input again:");
+      System.out.println("You cannot go further left. Input again:");
       return false;
     } else if (CurrentCoordinate[1]==10 && M=='R'){
-      System.out.println("You are at the most right, cannot go right. Input again:");
+      System.out.println("You cannot go further right. Input again:");
       return false;
     } else if (CurrentCoordinate[0]==14 && M=='D'){
-      System.out.println("You are at the most bottom, cannot go down. Input again:");
+      System.out.println("You cannot go further down. Input again:");
       return false;
     } else if (CurrentCoordinate[0]==0 && M=='U'){
-      System.out.println("You are at the most top, cannot go up. Input again:");
+      System.out.println("You cannot go further up. Input again:");
       return false;
     } else {
       if (M=='U'){
@@ -194,7 +194,7 @@ public class FinalProject{
       available+="5 ";
     }
     if((CheckPosition("T A F W S O R H D".split("\\s+"))&&CheckStatus("b".split("\\s+")))||(CheckPosition("M".split("\\s+"))&&CheckStatus("r".split("\\s+")))){
-      System.out.println("6.Stealth in and tried to find supplies.");
+      System.out.println("6.Stealth in and try to find supplies.");
       available+="6 ";
     }
     if(CheckPosition("H".split("\\s+"))&&CheckStatus("r".split("\\s+"))&&(injured||sick)){
@@ -210,7 +210,7 @@ public class FinalProject{
       available+="9 ";
     }
     if(CheckPosition("G".split("\\s+"))){
-      System.out.println("10.Tried to cheat rebel checkpoints and sneak out of the city");
+      System.out.println("10.Try to cheat rebel checkpoints and sneak out of the city");
       available+="10 ";
     }
     String[] Raw1=available.split("\\s+");
@@ -445,7 +445,7 @@ public class FinalProject{
         DiseaseChance-=2;
         break;
     }
-    System.out.printf("After searching for a long time, you stopped scavenging and started to see what you got.%n");
+    System.out.printf("After searching for a long time, you stop scavenging and examine what you found.%n");
     AddFood(foodbuff);
     AddMedicine(medicinebuff);
     AddBandage(bandagebuff);
@@ -573,7 +573,7 @@ public class FinalProject{
         weaponbuff-=2;
         valuablesbuff-=2;
         ammobuff-=2;
-        System.out.printf("You sneaked in, evade attentions, grabbed a bag and ran out.%nAfter you are sure that you are safe, you open the bag and begin counting what you steal.%n");
+        System.out.printf("You sneak in, evade attention, grab a bag and run out.%nAfter you are sure that you are safe, you open the bag and begin counting what you stole.%n");
         AddFood(foodbuff);
         AddMedicine(medicinebuff);
         AddBandage(bandagebuff);
@@ -581,13 +581,13 @@ public class FinalProject{
         AddAmmo(ammobuff);
         AddWeapon(weaponbuff);
     }else{
-      System.out.printf("Your attempt to crime is discovered,you hear noises and sounds of loading guns.%n");
+      System.out.printf("Your attempt at crime is discovered, you hear noises and sounds of loading guns.%n");
       if((pistol||AutomaticRifle)&&ammo>=1){
-        System.out.printf("You jumped out of window, shot some bullets back.%nIt sounds that you hit some civilians there and they stop chasing you.%n");
+        System.out.printf("You jump out a window, and shoot some bullets back.%nIt sounds like you hit some civilians and they stop chasing you.%n");
         Moral-=10;
         ammo-=1;
       }else{
-        System.out.printf("You began to run away.%nWhile you are running away, people inside this house shoot you. You feel that a bullet hits you.%n");
+        System.out.printf("You begin to run away.%nWhile you are running away, people inside the house shoot you. You feel a bullet hit you.%n");
         injured=true;
         hp-=15;
         Defeat();
@@ -600,13 +600,13 @@ public class FinalProject{
   @return No return needed.
 */
   public static void Trade(){
-    System.out.printf("You walked into the building, which is now a trading spot.%n'Maybe I can find a good deal.', you tell youself.%n");
+    System.out.printf("You walk into the building, which is now a trading spot.%n'Maybe I can find a good deal.', you tell youself.%n");
     Boolean chance=false;
     if(RollDice()>13){
       chance=true;
     }
     System.out.printf("%n%n-----------------------------------------------------------------------------------------------------------------------%nHere is the trade price...%n");
-    System.out.printf("1.One unit of valuable can exchange three units of food, or one unit of medicine, or one unit of bandage, or two units of ammos.%n2.One unit of medicine can exchange three units of food, or one unit of bandage, or two units of ammos.%n3.One unit of bandage can exchange three units of food, or one unit of medicine, or two units of ammos.%n4.Four units of food can exchange one unit of medicines or one unit of bandage.%n");
+    System.out.printf("1.One unit of valuables can exchange three units of food, or one unit of medicine, or one unit of bandage, or two units of ammo.%n2.One unit of medicine can exchange three units of food, or one unit of bandage, or two units of ammo.%n3.One unit of bandage can exchange three units of food, or one unit of medicine, or two units of ammo.%n4.Four units of food can exchange one unit of medicines or one unit of bandage.%n");
     if(chance){
       System.out.printf("5.Five units of valuables can exchange one pistol.%n6.Ten units of valuables can exchange one automatic rifle.%n7.Ten units of valuables can exchange a spy ID or a badge or cipher of rebels spies.%n");
     }
@@ -625,7 +625,7 @@ public class FinalProject{
     do{
       String StringInput;
       int typeInput;
-      System.out.printf("Input the number before each type to select what kind of item you are going to use.%n");
+      System.out.printf("Input the number of the choice of item you wish to trade.%n");
       typeInput=TextIO.getlnInt();
       while((typeInput>7||typeInput<1)||(typeInput>4&&(!chance))){
         System.out.printf("Invalid choices, input again.%n");
@@ -821,7 +821,7 @@ public class FinalProject{
           }else if(pistol){
             System.out.printf("You already have a pistol, you do not need to trade for a new one.%n");
           }else{
-            System.out.printf("That guy gave you a pistol.%n");
+            System.out.printf("The man gives you a pistol.%n");
             valuables-=5;
             pistol=true;
           }
@@ -832,7 +832,7 @@ public class FinalProject{
           }else if(AutomaticRifle){
               System.out.printf("You already have an automatic rifle, you do not need to trade for a new one.%n");
           }else{
-            System.out.printf("After putting all valuable things you give him, that guy pick up an automatic rifle from the safe.%n");
+            System.out.printf("After putting away all the valuable things you give him, the man picks up an automatic rifle from the safe.%n");
             valuables-=10;
             AutomaticRifle=true;
           }
@@ -873,7 +873,7 @@ public class FinalProject{
               if(spyID){
                 System.out.printf("You do not need that anymore.");
               }else{
-                System.out.printf("That guy claims that he had something interesting. You buy it.%nYou find out that it is maybe a rebel spy ID.%n");
+                System.out.printf("The man claims that he has something interesting. You buy it.%nYou find out that it is maybe a rebel spy ID.%n");
                 valuables-=10;
                 spyID=true;
               }
@@ -881,7 +881,7 @@ public class FinalProject{
               if(Badge){
                 System.out.printf("You do not need that anymore.");
               }else{
-                System.out.printf("That guy claims that he had something interesting. You buy it.%nYou find out that it is maybe a rebel spy's badge.%n");
+                System.out.printf("The man claims that he has something interesting. You buy it.%nYou find out that it is maybe a rebel spy's badge.%n");
                 valuables-=10;
                 Badge=true;
               }
@@ -889,7 +889,7 @@ public class FinalProject{
               if(Cipher){
                 System.out.printf("You do not need that anymore.");
               }else{
-                System.out.printf("That guy claims that he had something interesting. You buy it.%nYou find out that it is a booklet of words and sentences and symbols, and it is a cipher of rebels spies.%n");
+                System.out.printf("The man claims that he has something interesting. You buy it.%nYou find out that it is a booklet of words, sentences, and symbols, and it is a cipher of rebels spies.%n");
                 valuables-=10;
                 Cipher=true;
               }
@@ -1012,7 +1012,7 @@ public class FinalProject{
         valuablesbuff+=3;
         ammobuff+=4;
       }
-        System.out.printf("You sneaked in, evade attentions, grabbed a bag and ran out.%nAfter you are sure that you are safe, you open the bag and begin counting what you get.%n");
+        System.out.printf("You sneak in, evade attention, grab a bag and run out.%nAfter you are sure that you are safe, you open the bag and examine what you found.%n");
         AddFood(foodbuff);
         AddMedicine(medicinebuff);
         AddBandage(bandagebuff);
@@ -1020,12 +1020,12 @@ public class FinalProject{
         AddAmmo(ammobuff);
         AddWeapon(weaponbuff);
     }else{
-      System.out.printf("You are noticed by armed guards, they raise alarms that even deaf people feel it.%n");
+      System.out.printf("You are noticed by armed guards. They raise alarms that even deaf people can feel.%n");
       if((pistol||AutomaticRifle)&&ammo>=5){
-        System.out.printf("You jumped out of window, shot some bullets back.%nIt sounds that you hit some armed guards there and they stop chasing you.%n");
+        System.out.printf("You jump out a window, and shoot some bullets back.%nIt sounds that you hit some armed guards and they stop chasing you.%n");
         ammo-=5;
       }else{
-        System.out.printf("You began to run away.%nWhile you are running away, people inside this house shot you. You feel that a bullet hits you.%n");
+        System.out.printf("You begin to run away.%nWhile you are running away, people inside the house shoot at you. You feel that a bullet hits you.%n");
         injured=true;
         hp-=30;
         Defeat();
@@ -1038,14 +1038,14 @@ public class FinalProject{
   @return No return needed.
 */
   public static void DocHeal(){
-    System.out.printf("You decided to ask doctors for help and walked in.%n");
+    System.out.printf("You decide to ask the doctor for help and walk in.%n");
     int L=RollDice();
     if(L>8&&Moral>=45){
-      System.out.printf("A docter responses to your demand and help you.%n");
+      System.out.printf("A doctor recieves you and helps you.%n");
       sick=false;
       injured=false;
     }else if(L<=8&&Moral>=45){
-      System.out.printf("All doctors are busy helping other refugees, they can not help you.%n");
+      System.out.printf("All doctors are busy helping other refugees, they cannot help you.%n");
     }else{
       System.out.printf("No doctor wants to help you because of your bad reputation.%n");
     }
@@ -1056,10 +1056,10 @@ public class FinalProject{
   @return No return
 */
   public static void AskR(){
-    System.out.printf("You decided to go into the church and ask priests for help.%n");
+    System.out.printf("You decide to go into the church and ask priests for help.%n");
     int L=RollDice();
     if(L>11&&hungry<=5){
-      System.out.printf("A priest noticed that you are suffering from starving, so he gives you some food.(food+3)%n");
+      System.out.printf("A priest noticed that you are suffering from starvation, so he gives you some food.(food+3)%n");
       food+=3;
     }else if(L>11&&hungry>5){
       System.out.printf("Priests think that they need to help other people first, not you.%n");
@@ -1073,7 +1073,7 @@ public class FinalProject{
   @return No return needed
 */
   public static void AskM(){
-    System.out.printf("Tortured by the unpleasant experience of war and pressure of trying to survive, you think you need some mental help.%nYou wait in line for sometime and walk in a small chamber.%nAfter telling all your pressure and crime you commited, the priest helped you and you feel better now.%n");
+    System.out.printf("Tortured by the unpleasant experience of war and the pressure of trying to survive, you think you need some mental help.%nYou wait in line for some time and walk in a small chamber.%nAfter confessing what the crimes you have commited and how the pressure has been affecting you, the priest helps you and you feel better now.%n");
     Moral+=10;
     if(Moral>100){
       Moral=100;
@@ -1086,10 +1086,10 @@ public class FinalProject{
 */
   public static void Escape(){
     if(Cipher&&spyID&&Badge){
-      System.out.printf("After sneaked out of the gate, as expected, you are noticed by some rebels.%nYou shout out cipher you learned, one of them orders other rebels to hold fire.%nThen you show him your ID and your badge.%nHe then let you pass and tell you to meet with the General ten miles away.%nOf course you do not follow his words.%nYou directly get out of this region, catch a boat--of course you paid the captain with some valuables--and reach France.%n");
+      System.out.printf("After sneaking out of the gate, as expected, you are noticed by some rebels.%nYou shout out the cipher you learned, and one of them orders the other rebels to hold their fire.%nThen you show him your ID and your badge.%nHe lets you pass and tells you to meet with the General ten miles away.%nOf course you do not follow his words.%nYou directly get out of this region, catch a boat--you paid the captain with some valuables--and reach France.%n");
       TryEscape=true;
     }else{
-      System.out.printf("After sneaked out of the gate, as expected, you are noticed by some rebels.%nBut you failed you prove your identity as one of their spies, you are exposed and then executed.%n");
+      System.out.printf("After sneaking out of the gate, as expected, you are noticed by some rebels.%nYou fail to prove your identity as one of their spies. You are exposed and then executed.%n");
       System.exit(1);
     }
   }
@@ -1131,10 +1131,10 @@ public class FinalProject{
       System.out.printf("You find three unused Antibiotic pills, which are extremely useful.%n(medicine+3)%n");
     }else if(rolled>12&&rolled<=15){
       medicine+=2;
-      System.out.printf("Two pills of cold medicine...can be savior at this difficult times.%n(medicine+2)%n");
+      System.out.printf("Two pills of cold medicine...can be savior in these difficult times.%n(medicine+2)%n");
     }else if(rolled>9&&rolled<=12){
       medicine+=1;
-      System.out.printf("You find one pill of medicine.%n'Can be my life-saving straw.', you think.%n(medicine+1)%n");
+      System.out.printf("You find one pill of medicine.%n'This could be the difference between life and death.', you think.%n(medicine+1)%n");
     }else{
       medicine+=0;
       System.out.printf("You did not find any medicine.%nYou try to comfort yourself:'Medicine is always hard to find, take it easy.'%n(medicine+0)%n");
@@ -1169,7 +1169,7 @@ public class FinalProject{
     int rolled=AffectRollDice(Input);
     if(rolled>=16){
       valuables+=2;
-      System.out.printf("You find a gold ring. War still has not wipe out value of gold yet.%n'Maybe people at trade station will like it?',you think%n(valuables+2)%n");
+      System.out.printf("You find a gold ring. In these uncertain times, gold is the closest thing to money left.%n'Maybe people at trade station will like it?',you think%n(valuables+2)%n");
     }else if(rolled>13&&rolled<16){
       valuables+=1;
       System.out.printf("Two boxes of cigarettes...Cigarettes gradually became hard currency after war began.%n(valuables+1)%n");
@@ -1207,7 +1207,7 @@ public class FinalProject{
     if(rolled==16){
       System.out.printf("You see something in a box...%n");
       if(RollDice()>14){
-        System.out.printf("...And it is an automatic rifle.%nFor a civilian, this is a weapon that can protect you well and may even transform into one of those crminals.%n");
+        System.out.printf("...You find an automatic rifle.%nFor a civilian, this is a weapon that can protect you well and may even transform you into one of those criminals.%n");
         AutomaticRifle=true;
       }else{
         pistol=true;
@@ -1240,7 +1240,7 @@ public class FinalProject{
     if(!spyID){
       if(rolled>15){
         spyID=true;
-        System.out.printf("You find an ID card. It looks wired...'Possible once owned by a spy in this city', you think.%n(You now have a spy's ID, which can help you to cheat rebels.)%n");
+        System.out.printf("You find an ID card. It looks wierd...'Possibly once owned by a spy in this city', you think.%n(You now have a spy's ID, which can help you to trick rebels.)%n");
       }
     }
   }
@@ -1255,7 +1255,7 @@ public class FinalProject{
     if(!Badge){
       if(rolled>15){
         Badge=true;
-        System.out.printf("You find a badge with wired symbols and pattern.'Government newspaper once reported that this was a symbol of rebel spy...', you think.%n(You now have a spy's badge, which can help you to cheat rebels.)%n");
+        System.out.printf("You find a badge with wierd symbols and a pattern.'Government newspaper once reported that this was a symbol of rebel spies...', you think.%n(You now have a spy's badge, which can help you to trick rebels.)%n");
     }
   }
 }
@@ -1293,7 +1293,7 @@ public class FinalProject{
       System.out.printf("Invalid input, input again.%n");
         input=TextIO.getlnInt();
     }
-    System.out.printf("Enduring stench of sewers, you finally reached your destination.%n");
+    System.out.printf("Enduring the sewer stench, you finally reach your destination.%n");
     CurrentCoordinate[0]=SewerCoordinate[input-1][0];
     CurrentCoordinate[1]=SewerCoordinate[input-1][1];
   }
@@ -1314,7 +1314,7 @@ public class FinalProject{
       System.out.printf("You do not have enough food.%n");
       hungry-=2;
     }else{
-      System.out.printf("You do not have any food, so you need to go to bed hungry.%n");
+      System.out.printf("You do not have any food, so you go to bed hungry.%n");
       hungry-=3;
     }
     if(injured&&(bandage>0)){
@@ -1340,16 +1340,16 @@ public class FinalProject{
     if(FastRecover){
       if(hungry>7){
         hp+=30;
-        System.out.println("Treatment on injuries combines with a good dinner makes you recover fastly.");
+        System.out.println("Treatment on injuries combines with a good dinner makes you recover quickly.");
       }else if(hungry>=5&&hungry<=7){
         hp+=10;
-        System.out.println("Treatment on wounds makes you feel better--Even make you forget that you are not full.");
+        System.out.println("Treatment on wounds makes you feel better--It even makes you forget that you are not full.");
       }
     }else if(hungry>7){
       hp+=10;
-      System.out.println("Keeping your stomach being filled by food makes you recover.");
+      System.out.println("Keeping your stomach full with food makes you recover.");
     }else if(hungry<5){
-      System.out.println("Due to starving, your hp is minused by 10.");
+      System.out.println("Due to starvation, your lose 10 hp.");
       hp-=10;
     }else{
       System.out.println("You begin to feel hungry. If you still do not eat food tomorrow, you may have trouble.");
@@ -1376,19 +1376,19 @@ public class FinalProject{
     if(TryEscape){
       System.out.printf("Utilizing your wisdom, you escaped the city and this region in front of rebels.%n");
     }else{
-      System.out.printf("After you drew sixty tally marks on your diary, UN finally make rebels and government ceasefire and negotiate.%nShadow of death no longer shrouds this city. You and other civilians flee out as refugees.%n");
+      System.out.printf("After you drew sixty tally marks on your diary, the UN finally makes the rebels and the government ceasefire and negotiate.%nThe shadow of death no longer shrouds this city. You and other civilians flee out as refugees.%n");
     }
     Delay();
     if(Moral>=85){
-      System.out.printf("While trying to survive, you did not commit many crimes.%nIn rest of your life, you will not suffer much from your war experience.%n");
+      System.out.printf("While trying to survive, you did not commit many crimes.%nIn your remaining life, you will not suffer much from your war experience.%n");
     }else if(Moral<85&&Moral>=65){
-      System.out.printf("Struggling to survive, you need to commit crime. Although you did it only you had to, but this negative experience make you feel uncomfortable when you recall your memories even decades later.%n");
+      System.out.printf("Struggling to survive, you commited a fair number of crimes. Although you did it only you had to, this negative experience makes you feel very uncomfortable when you recall your memories even decades later.%n");
     }else if(Moral<65&&Moral>=40){
-      System.out.printf("You commited some crimes to survive, and you will always remeber what you did.%nIs surviving through the war really a good thing for you?%nWhatever your answer is, those memories tortured you from time to time.%n");
+      System.out.printf("You commited more than your share of crimes to survive, and you will always remeber what you did.%nIs surviving through the war really a good thing for you?%nWhatever your answer is, those memories will now torture you from time to time.%n");
     }else if(Moral<40&&Moral>=20){
-      System.out.printf("Stealing,killing...You tried all of them during the war.%nAlthough you told yourself that you did them because you have to.%nBut is that true? Anyway, war time memories will torture your mind from time to time.%n");
+      System.out.printf("Stealing,killing...You tried all of them during the war.%nYou tell yourself that you did them because you had to.%nBut is that the truth? Wartime memories will torture your mind on more than a few nights.%n");
     }else{
-      System.out.printf("How much crime you commmited?%nYou can not remember the exact number.%nHowever, when you dreamed at night, you still dreamed of faces of every vitcims who were dead directly or indirectly of your bullets and thefts...%n");
+      System.out.printf("How many crimes did you commmit to survive?%nYou cannot even remember the exact number.%nFor the rest of your life, when you dream at night, you still picture the faces of those who lost their lives as a result of your actions. There are almost too many to count...%n");
     }
     Delay();
     System.out.printf("Thanks for playing!%n%nProducers:%nRuiyang Hu%nCheng Ge%nWei Lu%nEric Patterson%n");
@@ -1455,40 +1455,40 @@ winout: method to show whether Reznov has escaped
     status=PositionStatusReport(raw.charAt(1));
     switch(raw.charAt(0)){
       case 'A':
-        System.out.printf("You are at the front of an apartment, "+status+"%n");
+        System.out.printf("You encounter an apartment that "+status+"%n");
         break;
       case 'T':
-        System.out.printf("You are at the front of a supermarket, "+status+"%n");
+        System.out.printf("You come across a supermarket that "+status+"%n");
         break;
       case 'M':
-        System.out.printf("You are at the front of a Military base. 'A sign of government power and a guarantee of safety.', said by the president. 'Yeah, definitely.' You tell youself.%nIt is a place "+status+"%n");
+        System.out.printf("You are at the front of a Military base. 'A sign of government power and a guarantee of safety.', the president said. 'Yeah, definitely,' You tell youself.%nThe building "+status+"%n");
         break;
       case 'F':
-        System.out.printf("You are at the front of a construction field. 'Leader of builders promised to finish this building, but seems that he could not fulfill his promise.' You tell youself. 'This place may not be completed forever...' But now, it is a place "+status+"%n");
+        System.out.printf("You stand before a construction field. 'Politicians promised to finish this building, but they could not fulfill their promises,' You tell youself. 'This place may never be completed...' The field "+status+"%n");
         break;
       case 'W':
-        System.out.printf("You are at the front of a warehouse, place to store food, medicine, etc. It now stores hope, too.%nThis warehouse is a place "+status+"%n");
+        System.out.printf("You are at the front of a warehouse, a place to store food, medicine, etc. It now stores hope, too.%nThe warehouse "+status+"%n");
         break;
       case 'S':
-        System.out.printf("You are at the front of a school. '......' You began to remember your time in school. But then you tell yourself it is not a time for memories.%nThe school in front of you is a place "+status+"%n");
+        System.out.printf("You stand before a school. '......' You began to remember your time in school. But then you tell yourself it is not a time for memories.%nThe school in front of you "+status+"%n");
         break;
       case 'O':
-        System.out.printf("An office building...You used to be one of those white-collars worked inside. You are so familiar to this place, but war changed it.%nThere is no people working inside it, it is a place "+status+"%n");
+        System.out.printf("An office building...You used to be one of those white-collar workers inside. This place seems so familiar, if you ignore the signs of war.%nThere are now no people working inside, it "+status+"%n");
         break;
       case 'R':
-        System.out.printf("You are at the front of a slum, home of bottom class people.---But war changed everything. Displaced person, refugees whose homes were destroyed all lived here now.%nIt is a place "+status+"%n");
+        System.out.printf("You approach what looks like a slum, home of bottom class people.---But war changed everything. Displaced persons, refugees whose homes were destroyed all lived here now.%nThe slum "+status+"%n");
         break;
       case 'P':
-        System.out.printf("You are at the front of an sewer entrance. You can smell it before see it---War does not change this.%n This place, full of disease, is now a safe and fast way for you to move to different parts of the city.%n");
+        System.out.printf("You stumble upon a sewer entrance. You can smell it before see it---War does not change this.%n This place, full of disease, is now a safe and fast way for you to move to different parts of the city.%n");
         break;
       case 'H':
-        System.out.printf("You are at the front of a hospital, "+status+"%n");
+        System.out.printf("You encounter a hospital, which "+status+"%n");
         break;
       case 'D':
-        System.out.printf("You are at the front of a church "+status+"%n");
+        System.out.printf("You see something beckoning to an earlier time. It's a church steeple. Perhaps it can provide holy refuge in this time of war? The church "+status+"%n");
         break;
       default:
-        System.out.printf("You are now at the gate of this city. If you can sneak out and cheat all those rebels that you are one of their spies in this city.%nBut they are not fools, so you need to prove yourself.%n");
+        System.out.printf("You are now at the gate of this city. If you can sneak out and trick all those rebels into believing that you are one of their spies, you could escape the city.%nBut they are not fools, so you need to prove yourself.%n");
         break;
     }
   }
@@ -1500,15 +1500,15 @@ winout: method to show whether Reznov has escaped
   public static String PositionStatusReport(char input){
     switch(input){
       case 'w':
-       return  "which is a wreckage now because of artilleries attacks.";
+       return  "lies in wreckage now because of artillery attacks.";
       case 'r':
-        return "which still has people living inside.";
+        return "still has people living inside.";
       case 'b':
-        return "which is now captured by a group of bandits.";
+        return "is now captured by a group of bandits.";
       case 'n':
-        return "which has no one inside now.";
+        return "has no one inside now.";
       default:
-        return "which is used as a trading spot for residents nearby.";
+        return "is used as a trading spot for residents nearby.";
     }
   }
 
@@ -1517,16 +1517,16 @@ winout: method to show whether Reznov has escaped
   @return No returns needed
   */
   public static void Introduction(){
-    System.out.println("Welcome to the game! In this game, you played as a civilian, Dimitri Reznov, who lived inside a city that have been surrounded rebels.");
+    System.out.println("Welcome to the game! In this game, you play as a civilian, Dimitri Reznov, who lives inside a city that has been surrounded rebels.");
     Delay();
-    System.out.println("What you need to do was to survive by scavenging. And maybe stealing or even kill someone---You decide.");
+    System.out.println("Your immediate goal is to survive by scavenging. You will have to make tough choices. You may have to steal or even kill someone---You decide.");
     Delay();
     System.out.println("Are you ready for the game? Type 'yes' to start, else to quit.");
     Delay();
     Scanner s = new Scanner(System.in);
     String input=s.nextLine();
     if((input.toUpperCase()).equals("YES")){
-      System.out.println("Good luck, game starts now.");
+      System.out.println("Good luck, the game starts now.");
       System.out.println("----------------------------------------------------------");
       System.out.println();
     }else{
@@ -1534,26 +1534,28 @@ winout: method to show whether Reznov has escaped
     }
     System.out.printf("'In modern war there is nothing sweet nor fitting in your dying. You will die like a dog for no good reason.'%n                                                                                                   ---Ernest Miller Hemingway%n");
     Delay();
-    System.out.printf("It is December 31st now. And the rebels are still outside of this city.%nNo one can go out and no one get in.%nYou, Dimitri Reznov, is one of those civilians who trapped here.%nThe conditions are getting worse. People are running out of food, medicines and everything they need to live.%n");
+    System.out.printf("The Setting:%n%n");
     Delay();
-    System.out.printf("Shadow of the war shrouded the city for such a long time that almost no one celebrated the Christmas.%nYou planed to stay inside your apartment, but a shelling rain razed your apartment to flat ground.%n");
-    System.out.printf("So you can no longer stay in your house, you need to move inside the city and tried to survive.%n");
+    System.out.printf("It is December 31st, and the rebels are still outside of this city.%nNo one can enter or leave due to the rebel blockade of the city.%nYou, Dimitri Reznov, are one of those civilians who trapped inside.%nConditions are getting worse. People are running out of food, medicine, and everything they need to live.%n");
     Delay();
-    System.out.printf("You heard that UN is trying to make rebels and government army ceasefire, and it will come true soon. But it is still 'soon',so you still need to survive through the period of mediation.%n");
+    System.out.printf("The shadow of the war has shrouded the city for such a long time that the recent Christmas passed by with minimal to no celebrations.%nYou planed to stay inside your apartment, but a shelling rain razed your apartment to the ground.%n");
+    System.out.printf("As a result, you can no longer stay in your house. You need to move inside the city and scavenge to survive.%n");
     Delay();
-    System.out.printf("But you also have a brave idea: You heard that there are spies of rebels in this city...If you can collect their IDs, cipher and badges, maybe you have a chance to pass through rebel's Roadblocks directly.%n");
+    System.out.printf("You heard that UN is trying to reach a ceasefire between the rebels and the government army, and it will soon come to pass if you can survive. But it is still 'soon',so you still need to survive through the period of mediation.%n");
+    Delay();
+    System.out.printf("You also have a brave idea: You heard that there are rebel spies in the city...If you can collect their IDs, cipher and badges, maybe you have a chance to pass through rebel's Roadblocks directly.%n");
     System.out.printf("But whatever your plan is, you need to move now....%n");
     LongDelay();
     System.out.printf("---------------------------------------------------------------------------------------------------------------------------------%nHere is a brief tutorial:%n%n");
     Delay();
-    System.out.printf("Everyday, you have three stages:move,act and sleep.%nDifferent buildings and status of buildings decide what choice you can have and possiblities for each result.%nSewer entrance can make you fast travel to the another sewer entrance.%n");
+    System.out.printf("Everyday, there are three stages:move,act and sleep.%nDifferent buildings and status of buildings decide what choices you have and possible results of your choices.%nSewer entrances can make you fast travel throughout the city, but are filled with filth.%n");
     Delay();
-    System.out.printf("If you get injured in a battle, do not be scared: As long as you feel full, or rate of hungry is above 7, you can recover 10hp during sleep.%nBut when you are suffering from starving, you will lose hp during sleeping.%n");
-    System.out.printf("You will automatically consume two units of food everyday, if you do not have any food, then your hungry rate will drop by 3. Drop to zero equals to death and end of game. If you find food after being hungury for sometime, each day you eat food will add hungry rate by 4 (maximum is 10).%n");
+    System.out.printf("If you get injured in a battle, do not be scared: As long as you keep you fullness meter above 7, you can recover 10hp during sleep.%nBut when you are suffering from starving, you will lose hp during sleeping.%n");
+    System.out.printf("You will automatically consume two units of food everyday. If you do not have any food, then your fullness meter will drop by 3. A fullness meter of zero means you will die and the game ends. %nIf you find food after being hungury for some time, each day you eat food will add to the fullness meter by 4 (maximum is 10).%n");
     Delay();
-    System.out.printf("When you are injured, using bandage can help you recover faster and remove the 'injured' debuff.%nEach time you will consume 1 units and it will make you recover 200 percent faster when you are full, and even recover 10hp when hungry rate is between 5 to 7([5,7]).%nThis buff will be removed as long as one day later(So the boost is just one night long).%n");
+    System.out.printf("When you are injured, using a bandage can help you recover faster and remove the 'injured' debuff.%nEach time you will consume 1 unit and it will make you recover 200 percent faster when you are full, and even recover 10hp when the fullness meter is from 5 to 7([5,7]).%nThis buff will be removed one day later(So the boost is just one night long).%n");
     Delay();
-    System.out.printf("You may caught serious disease when you enter some untidy places. This status can be cured by having one unit of medicine.%nIf you do not do it or run out of medicine, then you can not recover HP and will lose 5HP eveyday.%nIt's the end of tutorial. Good Luck!%n%n%n%n");
+    System.out.printf("You may catch a serious disease when you enter some untidy places. This status can be cured by using one unit of medicine.%nIf you do not do it or run out of medicine, then you cannot recover HP and will lose 5HP every day.%nThe concludes the tutorial. Good Luck!!%n%n%n%n");
   }
 
 /**
@@ -1590,7 +1592,7 @@ winout: method to show whether Reznov has escaped
   public static void PlayerStatus(){
     System.out.println("--------------------------------------------------------------------------------------------------------");
     System.out.printf("It is the No.%1d day since your shelter was destroyed.%n",day);
-    System.out.printf("Your HP is %1d, hungry rate is %1d.%n",hp,hungry);
+    System.out.printf("Your HP is %1d, fullness meter is %1d.%n",hp,hungry);
     if(sick){
       System.out.printf("You are sick now.%n");
     }else{
@@ -1608,18 +1610,18 @@ winout: method to show whether Reznov has escaped
     }else{
       System.out.printf("You do not have any weapons.%n");
     }
-    System.out.printf("You have %1d food, %1d medicine, %1d bandage, %1d ammos and %1d valuables.%n",food,medicine,bandage,ammo,valuables);
+    System.out.printf("You have %1d food, %1d medicine, %1d bandage, %1d ammo and %1d valuables.%n",food,medicine,bandage,ammo,valuables);
     if(FastRecover){
       System.out.printf("You have bandaged yourself.%n");
     }
     if(spyID){
-      System.out.printf("You have a spy ID that may help you to cheat rebels.%n");
+      System.out.printf("You have a spy ID that may help you trick rebels.%n");
     }
     if(Badge){
-      System.out.printf("You have a badge of rebel spies.%n");
+      System.out.printf("You have a badge of the rebel spies.%n");
     }
     if(Cipher){
-      System.out.printf("You had and learned cipher of a spy.%n");
+      System.out.printf("You have learned the cipher of a spy.%n");
     }
   }
 
@@ -1635,7 +1637,7 @@ winout: method to show whether Reznov has escaped
   @return No returns needed.
 */
   public static void PlayerItemStatus(){
-    System.out.printf("You have %1d food, %1d medicine, %1d bandage, %1d ammos and %1d valuables.%n",food,medicine,bandage,ammo,valuables);
+    System.out.printf("You have %1d food, %1d medicine, %1d bandage, %1d ammo and %1d valuables.%n",food,medicine,bandage,ammo,valuables);
     if(pistol&&AutomaticRifle){
       System.out.printf("You have weapons.%n");
     }else if(pistol||AutomaticRifle){
@@ -1644,13 +1646,13 @@ winout: method to show whether Reznov has escaped
       System.out.printf("You do not have any weapons.%n");
     }
     if(spyID){
-      System.out.printf("You have a spy ID that may help you to cheat rebels.%n");
+      System.out.printf("You have a spy ID that may help you trick the rebels.%n");
     }
     if(Badge){
-      System.out.printf("You have a badge of rebel spies.%n");
+      System.out.printf("You have a badge of the rebel spies.%n");
     }
     if(Cipher){
-      System.out.printf("You had and learned cipher of a spy.%n");
+      System.out.printf("You have learned the cipher of a spy.%n");
     }
   }
 
@@ -1680,26 +1682,26 @@ Delay the program for 6.5s, make the program show texts slowly.
   public static void Defeat(){
     if(hp==0){
       if(sick&&injured&&(hungry<5)){
-        System.out.printf("You suffered from starving, injury and disease and finally fail to survive.%nYou become one of those victims of war.%n");
+        System.out.printf("You suffer from starvation, injury, and disease. Finally, you fail to survive.%nYou become one of the many victims of war.%n");
         System.exit(1);
       }else if(sick&&injured){
-        System.out.printf("In a war, lack of medical treatment is a lethal killer. And you are one of his victims.%n");
+        System.out.printf("In a war, lack of medical treatment is a lethal killer. And you are one of its  victims.%n");
         System.exit(1);
       }else if(sick&&hungry<5){
-        System.out.printf("Sickness and hunger tortured you and finally take your lives.%n");
+        System.out.printf("Sickness and hunger tortured you and finally take your life.%n");
         System.exit(1);
       }else if(injured&&(hungry<5)){
-        System.out.printf("Suffered from injury and hunger, you died.%n");
+        System.out.printf("Suffering from injury and hunger, you die.%n");
         System.exit(1);
       }else if(injured){
         System.out.printf("You bleed out and become one of victims of violence.%n");
         System.exit(1);
       }else{
-        System.out.printf("Disease corroded your health and finally killed you.%n");
+        System.out.printf("Disease corroded your health and finally kills you.%n");
         System.exit(1);
       }
     }else if(hungry==0){
-      System.out.printf("For several days, you tried to find food. But you failed and finally starved to death.%nYour emaciated corpse is find by a UN rescue teammember who enter this city after the ceasefire order.%n");
+      System.out.printf("For several days, you tried to find food. But you failed and finally starve to death.%nYour emaciated corpse is found by a UN rescue teammember who enters this city after the ceasefire order.%n");
       System.exit(1);
     }
   }
