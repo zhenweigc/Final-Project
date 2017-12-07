@@ -1288,6 +1288,7 @@ public class FinalProject{
     }
     System.out.printf("Please choose and input one of those No. in front of the coordinate you want to travel to.%n");
     int input=0;
+    input=TextIO.getlnInt();
     while(input==o||input>9||input<1){
       System.out.printf("Invalid input, input again.%n");
         input=TextIO.getlnInt();
