@@ -1548,7 +1548,9 @@ winout: method to show whether Reznov has escaped
     LongDelay();
     System.out.printf("---------------------------------------------------------------------------------------------------------------------------------%nHere is a brief tutorial:%n%n");
     Delay();
-    System.out.printf("Everyday, there are three stages:move,act and sleep.%nDifferent buildings and status of buildings decide what choices you have and possible results of your choices.%nSewer entrances can make you fast travel throughout the city, but are filled with filth.%n");
+    System.out.printf("Everyday, there are three stages:move,act and sleep.%nKeep in mind when moving that U/up will decrease your y-coordinate, while D/down will increase your y-coordinate.%n");
+    Delay();
+    System.out.printf("Different buildings and status of buildings decide what choices you have and possible results of your choices.%nSewer entrances can make you fast travel throughout the city, but are filled with filth.%n");
     Delay();
     System.out.printf("If you get injured in a battle, do not be scared: As long as you keep you fullness meter above 7, you can recover 10hp during sleep.%nBut when you are suffering from starving, you will lose hp during sleeping.%n");
     System.out.printf("You will automatically consume two units of food everyday. If you do not have any food, then your fullness meter will drop by 3. A fullness meter of zero means you will die and the game ends. %nIf you find food after being hungury for some time, each day you eat food will add to the fullness meter by 4 (maximum is 10).%n");
