@@ -901,6 +901,8 @@ public class FinalProject{
       String b=TextIO.getln();
       if((b.toUpperCase()).equals("YES")){
         continueTrade=true;
+      }else{
+        continueTrade=false;
       }
     }while(continueTrade);
   }
