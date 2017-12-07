@@ -680,7 +680,6 @@ public class FinalProject{
           }
           break;
         case 2:
-          System.out.printf("Now enter name of the item you want to exchange to.%n");
           Boolean ValidInput1=true;
           int input1=0;
           System.out.printf("Now enter name of the item you want to exchange to.%n");
@@ -726,7 +725,6 @@ public class FinalProject{
           }
           break;
         case 3:
-          System.out.printf("Now enter name of the item you want to exchange to.%n");
           Boolean ValidInput2=true;
           int input2=0;
           System.out.printf("Now enter name of the item you want to exchange to.%n");
@@ -772,7 +770,6 @@ public class FinalProject{
           }
           break;
         case 4:
-          System.out.printf("Now enter name of the item you want to exchange to.%n");
           Boolean ValidInput3=true;
           int input3=0;
           System.out.printf("Now enter name of the item you want to exchange to.%n");
@@ -902,7 +899,7 @@ public class FinalProject{
       PlayerItemStatus();
       System.out.printf("Do you want to continue trading with them? Input 'yes' to continue, else to quit.%n");
       String b=TextIO.getln();
-      if(!((a.toUpperCase()).equals("YES"))){
+      if((b.toUpperCase()).equals("YES")){
         continueTrade=true;
       }
     }while(continueTrade);
